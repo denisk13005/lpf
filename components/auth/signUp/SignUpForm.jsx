@@ -101,7 +101,7 @@ export default function SignUpForm() {
                 type="submit"
           
               >
-                S'enregistrer
+                S&apos;enregistrer
               </button>
             </div>
             <div  className={styles.createAccountContainer}>
@@ -109,7 +109,7 @@ export default function SignUpForm() {
                 htmlFor="password"
           
               >
-                J'ai déjà un compte
+                J&apos;ai déjà un compte
               </span>
               <div >
                 <Link href={"/login"}

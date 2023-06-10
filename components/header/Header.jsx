@@ -1,9 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import styles from './styles.module.scss'
 
 const Header = () => {
   return (
-    <header>
+    <header className={styles.headerContainer}>
          
           <Link href={"/"}> home</Link>
           <Link href={"/login"}> login</Link>
