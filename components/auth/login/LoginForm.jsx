@@ -18,12 +18,14 @@ const LoginForm = () => {
 
   const loggin = async (e) => {
     e.preventDefault();
+    console.log(data);
 
     let res = await axios.post("api/user/login", {
       email: data.email,
       password: data.password,
     });
-    let userRes = await res.data.user;
+    let userRes = await res.data;
+    console.log(userRes);
     user && setUser(userRes);
     console.log(userRes, "user res");
     if (userRes) {
@@ -47,7 +49,7 @@ const LoginForm = () => {
             >
               Email
             </label>
-            <div className="mt-1">
+            <div >
               <input
                 id="email"
                 name="email"
