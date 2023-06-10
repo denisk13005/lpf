@@ -1,9 +1,14 @@
 import prisma from "@/lib/prismaInstance.ts";
+import NextCors from "nextjs-cors";
 
 import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
+
 export async function POST(req, res) {
+  req.headers.set("Access-Control-Allow-Origin", "*");
+  req.headers.set("Access-Control-Allow-Methods", "POST");
+  req.headers.set("Access-Control-Allow-Headers", "Content-Type");
   const userInfos = await req.json();
   const user = await prisma.user.findUnique({
     where: { email: userInfos.email },
