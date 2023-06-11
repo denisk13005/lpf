@@ -7,7 +7,6 @@ const Header = () => {
     <header className={styles.headerContainer}>
       <Link href={'/'}> home</Link>
       <Link href={'/login'}> login</Link>
-      <Link href={'/addProduct'}>Add Product</Link>
     </header>
   );
 };

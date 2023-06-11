@@ -1,6 +1,5 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-import ProductContextProvider from 'context/ProductContextProvider';
+import UserContextProvider from 'context/UserContextProvider';
 import styles from './page.module.css';
 import Header from '@/components/header/Header';
 
@@ -11,12 +10,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
+    <html lang='fr'>
       <body className={styles.bodyContainer}>
-        <ProductContextProvider>
+        <UserContextProvider>
           <Header />
           <section className={styles.sectionContainer}>{children}</section>
-        </ProductContextProvider>
+        </UserContextProvider>
       </body>
     </html>
   );
