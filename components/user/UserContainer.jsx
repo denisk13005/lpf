@@ -10,7 +10,6 @@ import styles from './styles.module.scss';
  * @param {object} props.user - The user object containing user information.
  * @param {string} props.user.name - The name of the user.
  * @param {string} props.user.picture - The URL of the user's picture.
- * @param {string} props.user.color - The color associated with the user.
  * @returns {JSX.Element} The user container component.
  */
 const UserContainer = ({ user }) => {

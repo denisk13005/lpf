@@ -1,6 +1,6 @@
-import './globals.css';
+import './globals.scss';
 import UserContextProvider from 'context/UserContextProvider';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 import Header from '@/components/header/Header';
 
 export const metadata = {
