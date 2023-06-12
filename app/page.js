@@ -1,10 +1,13 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import React from 'react';
+import styles from './page.module.css';
+import UserContainer from '../components/user/UserContainer';
 
-export default function Home() {
+const Home = () => {
   return (
     <main className={styles.main}>
-     home
+      <UserContainer />
     </main>
-  )
-}
+  );
+};
+
+export default Home;
