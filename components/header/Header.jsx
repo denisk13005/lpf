@@ -8,8 +8,7 @@ import { useUserContext } from '/context/UserContext';
 
 const Header = () => {
   const { user } = useUserContext();
-  console.log('user', user);
-  if (user.token === '') {
+  if (!user) {
     return (
       <header className={styles.headerContainer}>
         <Link href={'/'}> home</Link>
@@ -20,7 +19,9 @@ const Header = () => {
   return (
     <header className={styles.headerContainer}>
       <Link href={'/'}> home</Link>
-      <UserContainer user={user} />
+      <Link href={'/profile'}>
+        <UserContainer user={user} />
+      </Link>
     </header>
   );
 };
