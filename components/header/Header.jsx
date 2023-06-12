@@ -2,26 +2,20 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import NavigationLinks from '../navigationLinks/NavigationLinks';
+import PersonaHeartContainer from '../personaHeartContainer/PersonaHeartContainer';
+import Logo from '../logo/Logo';
 import styles from './styles.module.scss';
-import UserContainer from '../user/UserContainer';
-import { useUserContext } from '/context/UserContext';
 
 const Header = () => {
-  const { user } = useUserContext();
-  if (!user) {
-    return (
-      <header className={styles.headerContainer}>
-        <Link href={'/'}> home</Link>
-        <Link href={'/login'}> login</Link>
-      </header>
-    );
-  }
   return (
     <header className={styles.headerContainer}>
-      <Link href={'/'}> home</Link>
-      <Link href={'/profile'}>
-        <UserContainer user={user} />
+      <Link href={'/'}>
+        <Logo />
       </Link>
+      <NavigationLinks />
+      <PersonaHeartContainer />
     </header>
   );
 };
