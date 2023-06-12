@@ -1,0 +1,15 @@
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userPastille {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  color: white;
+}
