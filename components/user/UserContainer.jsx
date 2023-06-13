@@ -1,27 +1,37 @@
-'use client';
-
-import { useUserContext } from '/context/UserContext';
 import Image from 'next/image';
 import React from 'react';
+import styles from './styles.module.scss';
 
-const UserContainer = () => {
-  const { user } = useUserContext();
-  const { message, name, picture, userId, token, role } = user;
-  if (token === '') return <p>Non connecté</p>;
+/**
+ * User container component that displays user information.
+ *
+ * @component
+ * @param {object} props - The component props.
+ * @param {object} props.user - The user object containing user information.
+ * @param {string} props.user.name - The name of the user.
+ * @param {string} props.user.picture - The URL of the user's picture.
+ * @returns {JSX.Element} The user container component.
+ */
+const UserContainer = ({ user }) => {
+  console.log('user', user);
+
   return (
-    <div>
-      <p>Message: {message}</p>
-      <p>Name: {name}</p>
-      <p>Role: {role}</p>
-      <p>userId: {userId}</p>
-      <p>token: {token}</p>
-
-      {/* <Image
-        alt='user'
-        src={user.picture ||}
-        width={100}
-        height={100}
-      /> */}
+    <div className={styles.userContainer}>
+      <p>{user?.name}</p>
+      {user?.picture ? (
+        <Image
+          alt='user'
+          src={user.picture}
+          width={100}
+          height={100}
+        />
+      ) : (
+        <div
+          className={styles.userPastille}
+          style={{ backgroundColor: user?.color || 'black' }}>
+          <p>{user?.name[0].toUpperCase()}</p>
+        </div>
+      )}
     </div>
   );
 };
