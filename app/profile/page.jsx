@@ -1,14 +1,13 @@
 'use client'
 import React from 'react';
 import { useUserContext } from '/context/UserContext';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 const Profile = () => {
   const { user } = useUserContext();
-  const router = useRouter()
   if(!user)
 {
-  router.push('/login')
+  redirect('/login')
 }
 
   return (
