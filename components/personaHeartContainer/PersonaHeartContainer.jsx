@@ -71,7 +71,7 @@ const PersonaHeartContainer = () => {
       <div className={styles.personaHeartContainer}>
         {displaypersonaHeartContainer(user, pathname)}
         <div className={styles.line} />
-        <Link href={'/wishes'}>
+        <Link href={'/wishes'} className={styles.heart}>
           <Image
             src={
               pathname.startsWith('/wishes')
