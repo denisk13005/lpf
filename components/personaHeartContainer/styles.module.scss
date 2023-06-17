@@ -5,6 +5,11 @@
   align-items: center;
   justify-content: space-between;
   width: 4.8125rem;
+  @media screen and (max-width: 769px) {
+    width: max-content;
+    filter: invert(1);
+  }
+  
 }
 
 .userPastille {
@@ -20,6 +25,7 @@
   font-weight: bold;
   &Black {
     background-color: black;
+    
   }
 }
 
@@ -27,4 +33,12 @@
   height: 1.625rem;
   width: 0.0625rem;
   background-color: black;
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
+}
+.heart {
+  @media screen and (max-width: 769px) {
+    display : none
+  }
 }

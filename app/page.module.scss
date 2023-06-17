@@ -10,13 +10,46 @@
 .main{
   width: 100%;
   height: 100%;
+  .titleContainer {
+    display: flex;
+    justify-content: center;
+    .hanger {
+      font-size:124px;
+      color : white;
+      margin-top: -20px;
+      margin-bottom: -30px;
+      @media screen and (min-width : 769px) {
+        display :none
+      }
+    }
+    @media screen and (max-width : 768px) {
+      flex-direction : column;
+      align-items:center;
+      margin-top: 200px;
+    }
+    div{
+      font-size: 84px;
+      color: white;
+      margin-right: 30px;
+      min-width: max-content;
+      
+      @media screen and (max-width : 768px) {
+        margin-right :0;
+      transform : rotate(-20deg)
+
+        
+        
+      }
+    }
+  }
  
 }
-@media screen and (max-width:769px) {
+@media screen and (max-width:768px) {
   .bodyContainer {
 
     background-image: none;
-    background-color: rgb(247, 185, 208);
+    background: rgb(247,185,208);
+    background: radial-gradient(circle, rgba(247,185,208,1) 0%, rgba(252,70,226,0.8547619731486344) 100%);
   }
 
 }

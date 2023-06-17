@@ -11,7 +11,8 @@ import styles from './styles.module.scss';
 const Header = () => {
   return (
     <header className={styles.headerContainer}>
-      <Link href={'/'}>
+      <div className={styles.menu}>menu</div>
+      <Link href={'/'} className={styles.logo}>
         <Logo />
       </Link>
       <NavigationLinks />
