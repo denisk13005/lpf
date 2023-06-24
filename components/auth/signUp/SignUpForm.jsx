@@ -11,12 +11,11 @@ export default function SignUpForm() {
   const router = useRouter();
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const registerUser = async (e) => {
-    console.log(data);
+    console.log(data,'here');
     e.preventDefault();
 
-    axios
-      .post("/api/user/signup", data)
-      .then(() => router.push("/signIn"))
+    axios.post("/api/user/signUp", data)
+      .then(() => router.push("/login"))
       .catch(() => alert("problème"));
   };
   return (
