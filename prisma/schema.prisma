@@ -44,7 +44,6 @@ model User {
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
-  type              String
 
   access_token      String? @db.String
 
