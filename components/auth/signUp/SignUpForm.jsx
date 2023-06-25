@@ -14,9 +14,14 @@ export default function SignUpForm() {
     console.log(data,'here');
     e.preventDefault();
 
-    axios.post("/api/user/signUp", data)
-      .then(() => router.push("/login"))
-      .catch(() => alert("problème"));
+   const newUserData = await  axios.post("/api/user/signUp", data)
+   console.log(newUserData);
+   if(newUserData){
+
+     const token = newUserData.data.Account.access_token
+     localStorage.setItem('lfpToken', token)
+     router.push('/login')
+    }
   };
   return (
     <>
