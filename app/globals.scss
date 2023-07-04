@@ -1,0 +1,13 @@
+@import './variables.module.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  /* border : 1px black inset */
+  font-family: $fontPrimary;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

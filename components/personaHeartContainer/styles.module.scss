@@ -1,0 +1,44 @@
+@import '/app/variables.module.scss';
+
+.personaHeartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 4.8125rem;
+  @media screen and (max-width: 769px) {
+    width: max-content;
+    filter: invert(1);
+  }
+  
+}
+
+.userPastille {
+  display: flex;
+  background-color: $colorLink;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  &Black {
+    background-color: black;
+    
+  }
+}
+
+.line {
+  height: 1.625rem;
+  width: 0.0625rem;
+  background-color: black;
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
+}
+.heart {
+  @media screen and (max-width: 769px) {
+    display : none
+  }
+}

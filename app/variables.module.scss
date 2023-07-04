@@ -1,0 +1,10 @@
+$colorText: #1c1c1c;
+$colorLink: #daa520;
+
+$fontPrimary: 'Montserrat', sans-serif;
+
+:export {
+  $colorText: $colorText;
+  $colorLink: $colorLink;
+  $fontPrimary: $fontPrimary;
+}
