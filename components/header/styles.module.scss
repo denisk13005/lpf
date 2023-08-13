@@ -15,9 +15,11 @@
     background-color: transparent;
     box-shadow: none;
     padding: 0px 20px;
+   
   }
 }
 .menu {
+  cursor: pointer;
   @media screen and (min-width: 769px) {
     display: none;
   }
@@ -25,5 +27,44 @@
 .logo {
   @media screen and (max-width: 769px) {
     display: none;
+  }
+}
+.navLinksContainer {
+  position: relative;
+  flex-grow: 1;
+  @media screen and (max-width:769px) {
+    flex-grow: 0;
+  }
+}
+.closeBtn {
+  display: none;
+  position: absolute;
+  top: -250px;
+  transition: all .5s;
+  
+
+  
+}
+.closeBtnVisible {
+  position: absolute;
+  top: -250px;
+
+
+  transition: all 1s;
+
+  @media screen and (max-width:769px) {
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 100%;
+    top: -20px;
+    left: 10px;
+    z-index: 1000;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    scale: 1;
+
   }
 }

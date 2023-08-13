@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './styles.module.scss';
+import { useEffect,useRef } from 'react';
 
 const navLinks = [
   { name: 'Accueil', href: '/' },
@@ -12,24 +13,30 @@ const navLinks = [
   { name: 'Contact', href: '/contact' },
 ];
 
-const NavigationLinks = () => {
+const NavigationLinks = ({showHambMenu, closeHamb}) => {
   const pathname = usePathname();
+  
+  useEffect(() => {
+    console.log(showHambMenu)
+  }, [showHambMenu])
+  
 
   return (
-    <nav className={styles.navContainer}>
+    <nav  className= { showHambMenu ? `${styles.navContainer} ${styles.navContainerVisible}` : styles.navContainer}>
+    
       {navLinks.map((link) => {
         const isActive =
-          (pathname.startsWith(link.href) && link.href !== '/') ||
-          (pathname === '/' && link.href === '/');
-
+        (pathname.startsWith(link.href) && link.href !== '/') ||
+        (pathname === '/' && link.href === '/');
+        
         return (
           <div
-            className={
-              isActive
-                ? `${styles.active} ${styles.navLinkContainer}`
-                : styles.navLinkContainer
-            }
-            key={link.name}>
+          className={
+            isActive
+            ? `${styles.active} ${styles.navLinkContainer}`
+            : styles.navLinkContainer
+          }
+          key={link.name}>
             <Link href={link.href}>{link.name}</Link>
           </div>
         );
