@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 function ModalAddEvent({ showEventModal, close , addEvent}) {
     // state local
     const [date, setDate] = useState('')
-    const [imageSrc, setImageSrc] = useState('')
+    const [imageSrc, setImageSrc] = useState('../../public/home.jpg')
     const [description, setDescription] = useState('')
     console.log(showEventModal)
     useEffect(() => {
