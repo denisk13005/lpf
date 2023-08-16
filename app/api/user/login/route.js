@@ -15,16 +15,13 @@ export async function POST(req, res) {
   try {
     if (user && (await bcrypt.compare(userInfos.password, user.password))) {
       console.log("here");
+  
       let obj = {
         message: "ok",
         userId: user.id,
         name: user.name,
         picture: user.picture,
-        // token: jwt.sign(
-        //   { userId: user.id }, //on signe le token avec l'id de l'utilisateur pour ne pas qu'un autre utilisateur puisse modifier un produit (seul celui avec l'id peut modifier ses produits)
-        //   process.env.JWT_SECRET, //on définit un sel pour le token
-        //   { expiresIn: "24h" } //on définit une durée de validité du token
-        // ),
+      
       };
       return new Response(
         JSON.stringify({

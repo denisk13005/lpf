@@ -18,8 +18,10 @@ export default function SignUpForm() {
    console.log(newUserData);
    if(newUserData){
 
-     const token = newUserData.data.Account.access_token
-     localStorage.setItem('lfpToken', token)
+    //  const token = newUserData.data.Account.access_token
+    const account = newUserData.data.Account
+    console.log(account,"account");
+     localStorage.setItem('lpfAccount', JSON.stringify(account))
      router.push('/login')
     }
   };
