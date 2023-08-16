@@ -13,10 +13,12 @@ const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' });
 
   const { user, addUser } = useUserContext();
+  const [tokenInLocalStorage, setTokenInLocalStorage] = useState('')
 
   const router = useRouter();
 
-  const tokenInLocalStorage = localStorage.getItem('lpfAccount').token
+  // localStorage.getItem('lpfAccount') && setTokenInLocalStorage(localStorage.getItem('lpfAccount').token)
+  // console.log(tokenInLocalStorage,);
 
   const loggin = async (e) => {
     e.preventDefault();
@@ -31,9 +33,9 @@ const LoginForm = () => {
     // check if user had a token in the bdd
 
     
-    if(tokenInLocalStorage){
+    // if(tokenInLocalStorage){
       
-    }
+    // }
 
     addUser(userRes.userInfos);
     console.log(userRes, 'user res');

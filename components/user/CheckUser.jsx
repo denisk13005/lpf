@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '@/context/UserContext';
 
 import axios from 'axios';
@@ -13,9 +13,13 @@ import { useRouter } from 'next/navigation';
 const CheckUser = () => {
   const router = useRouter()
   const { user, addUser } = useUserContext();
+  const [tokenInLocalStorage, setTokenInLocalStorage] = useState('')
   useEffect(() => {
     console.log(('here'));
-    const tokenInLocalStorage = JSON.parse(localStorage.getItem('lpfAccount')).access_token
+    if(localStorage.getItem('lpfAccount') !== null ){
+      setTokenInLocalStorage(localStorage.getItem('lpfAccount').access_token)
+    }
+    console.log(localStorage.getItem('lpfAccount'));
     
   if (tokenInLocalStorage){
     findUserInBdd(tokenInLocalStorage)

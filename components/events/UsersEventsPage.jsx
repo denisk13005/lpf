@@ -16,7 +16,6 @@ function UsersEventsPage() {
   const [events, setevents] = useState([])
   useEffect(() => {
     setevents(data.events)
-    user ? user.role = 'ADMIN' : null
   }, [])
   useEffect(() => {
     console.log(showEventModal)
@@ -47,7 +46,7 @@ function UsersEventsPage() {
 
         <h1 className={styles.title}>Nos Evénements</h1>
         {
-          // (user && user.role === 'ADMIN') &&
+          (user && user.role === 'ADMIN') &&
           <button className={styles.btn} onClick={() => setShowEventModal(true)}>Ajouter un événement</button>
 
         }
