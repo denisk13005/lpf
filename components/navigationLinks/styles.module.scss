@@ -14,9 +14,8 @@
     width: 150px;
     background: rgba(pink, .9);
     top: -285px;
-    right: 0;
+    left: 0;
     z-index: 1000;
-    align-items: flex-end;
     padding: 15px;
     border-bottom-left-radius: 10px;
 
@@ -38,4 +37,12 @@
   font-weight: 600;
   border-bottom: 3px solid $colorLink;
   transition: all 0.3s ease-in-out;
+}
+.closeBtn {
+  position: absolute;
+  top : 2px;
+  right: 2px;
+  font-size: 24px;
+  cursor : pointer
+  
 }

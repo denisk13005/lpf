@@ -9,7 +9,7 @@ import Logo from '../logo/Logo';
 import styles from './styles.module.scss';
 
 const Header = () => {
-  const [showHambMenu, setshowHambMenu] = useState(true)
+  const [showHambMenu, setshowHambMenu] = useState(false)
   const [showCloseBtn, setShowCloseBtn] = useState(false)
   const show = () => {
     setshowHambMenu(!showHambMenu)
@@ -33,7 +33,7 @@ const Header = () => {
         <NavigationLinks showHambMenu={showHambMenu} closeHamb={closeHamb} />
         
 
-            <span className={showCloseBtn ? `${styles.closeBtn} ${styles.closeBtnVisible}`: styles.closeBtn } onClick={() => show()}>X</span>
+        
    
       </div>
       <PersonaHeartContainer />

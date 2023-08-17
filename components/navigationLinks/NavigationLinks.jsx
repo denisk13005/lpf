@@ -1,8 +1,10 @@
 import React from 'react';
+import { useEffect,useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+import {AiOutlineCloseCircle} from 'react-icons/ai'
 import styles from './styles.module.scss';
-import { useEffect,useRef } from 'react';
 
 const navLinks = [
   { name: 'Accueil', href: '/' },
@@ -23,7 +25,8 @@ const NavigationLinks = ({showHambMenu, closeHamb}) => {
 
   return (
     <nav  className= { showHambMenu ? `${styles.navContainer} ${styles.navContainerVisible}` : styles.navContainer}>
-    
+      <span></span>
+      <AiOutlineCloseCircle className={styles.closeBtn} onClick={() => closeHamb(true)}/>
       {navLinks.map((link) => {
         const isActive =
         (pathname.startsWith(link.href) && link.href !== '/') ||
@@ -37,7 +40,7 @@ const NavigationLinks = ({showHambMenu, closeHamb}) => {
             : styles.navLinkContainer
           }
           key={link.name}>
-            <Link href={link.href}>{link.name}</Link>
+            <Link href={link.href} onClick={() => closeHamb(true)}>{link.name}</Link>
           </div>
         );
       })}
