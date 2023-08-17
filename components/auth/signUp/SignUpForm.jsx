@@ -11,13 +11,17 @@ export default function SignUpForm() {
   const router = useRouter();
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const registerUser = async (e) => {
-    console.log(data);
+    console.log(data,'here');
     e.preventDefault();
 
-    axios
-      .post("/api/user/signup", data)
-      .then(() => router.push("/signIn"))
-      .catch(() => alert("problème"));
+   const newUserData = await  axios.post("/api/user/signUp", data)
+   console.log(newUserData);
+   if(newUserData){
+
+     const token = newUserData.data.Account.access_token
+     localStorage.setItem('lfpToken', token)
+     router.push('/login')
+    }
   };
   return (
     <>
