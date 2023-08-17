@@ -30,7 +30,7 @@ export async function POST(req, res) {
       const  token = jwt.sign(
         { userId: newUser.id }, //on signe le token avec l'id de l'utilisateur pour ne pas qu'un autre utilisateur puisse modifier un produit (seul celui avec l'id peut modifier ses produits)
         process.env.JWT_SECRET, //on définit un sel pour le token
-        { expiresIn: "24h" } //on définit une durée de validité du token
+        { expiresIn: "168h" } //on définit une durée de validité du token
       )
       console.log(token);
       console.log(newUser);
