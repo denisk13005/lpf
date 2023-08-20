@@ -7,6 +7,7 @@ import { useUserContext } from '@/context/UserContext';
 import EventTile from './EventTile'
 import data from '@/mocks/eventsMock.json'
 import ModalAddEvent from './ModalAddEvent';
+import axios from 'axios';
 
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
@@ -14,8 +15,15 @@ function UsersEventsPage() {
 
   const router = useRouter()
   const [events, setevents] = useState([])
-  useEffect(() => {
-    setevents(data.events)
+  const getEvents = async () => {
+    const res = await axios.get('/api/events/getEvents')
+    console.log(res);
+    const events =    res.data
+    setevents(events)
+  }
+  useEffect( () => {
+     getEvents()
+    console.log(events);
   }, [])
   useEffect(() => {
     console.log(showEventModal)
