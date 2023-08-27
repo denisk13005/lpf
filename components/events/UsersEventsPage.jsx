@@ -24,6 +24,7 @@ function UsersEventsPage() {
   useEffect( () => {
      getEvents()
     console.log(events);
+    console.log(user,'user');
   }, [])
   useEffect(() => {
     console.log(showEventModal)
@@ -34,16 +35,17 @@ function UsersEventsPage() {
     setShowEventModal(!data)
   }
 
-  const addEvent = ({ date, picture, description }) => {
-    console.log(date, picture, description, '---')
-    events.push({
-      "id": 3,
+  const addEvent = async ({ date, picture, description }) => {
+    const event = await axios.post('/api/events/postEvent',{
       "name": "1er event",
       "date": date,
       "description": description,
       "picture": "https://images.unsplash.com/photo-1545048702-79362596cdc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG5vZWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      "userId": 1
-    })
+      "userId": user.userId
+    }).then(res => res.status === 200 && getEvents())
+
+
+    
   } 
 
 
@@ -54,7 +56,7 @@ function UsersEventsPage() {
 
         <h1 className={styles.title}>Nos Evénements</h1>
         {
-          (user && user.role === 'ADMIN') &&
+          // (user && user.role === 'ADMIN') &&
           <button className={styles.btn} onClick={() => setShowEventModal(true)}>Ajouter un événement</button>
 
         }

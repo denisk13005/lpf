@@ -10,7 +10,9 @@ function EventTile({props}) {
 
   return (
     <article className={styles.tileContainer} onClick={() => router.push(`/events/${props.id}`)}>
-        <h4 className={styles.eventDate}> {props.date}</h4>
+        <h4 className={styles.eventDate}> {
+        new Date(props.date).toLocaleDateString('fr-FR', {day :'numeric', month:'long', year:'numeric'})
+        }</h4>
 
           <div className={styles.imageContainer}>
             {
