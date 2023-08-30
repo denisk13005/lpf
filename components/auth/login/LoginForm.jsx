@@ -11,11 +11,14 @@ import styles from './styles.module.scss';
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' });
-  // const [user, setUser] = useState("");
 
   const { user, addUser } = useUserContext();
+  const [tokenInLocalStorage, setTokenInLocalStorage] = useState('')
 
   const router = useRouter();
+
+  // localStorage.getItem('lpfAccount') && setTokenInLocalStorage(localStorage.getItem('lpfAccount').token)
+  // console.log(tokenInLocalStorage,);
 
   const loggin = async (e) => {
     e.preventDefault();
@@ -26,11 +29,19 @@ const LoginForm = () => {
       password: data.password,
     });
     let userRes = await res.data;
-    console.log(user);
+
+    // check if user had a token in the bdd
+
+    
+    // if(tokenInLocalStorage){
+      
+    // }
+
     addUser(userRes.userInfos);
     console.log(userRes, 'user res');
     if (userRes) {
       alert('utilisateur connecté');
+      // mettre à jour le token avec l'userId (faire un put)
       router.push('/');
     }
   };

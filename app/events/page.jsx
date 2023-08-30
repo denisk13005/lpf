@@ -1,7 +1,10 @@
+import UsersEventsPage from '@/components/events/UsersEventsPage';
 import React from 'react';
 
 const evenements = () => {
-  return <div>Evenements</div>;
+  return (
+    <UsersEventsPage/>
+  );
 };
 
 export default evenements;

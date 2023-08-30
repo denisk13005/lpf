@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
+const nextConfig = {
   experimental: {
     appDir: true,
-  
-  }
-  
+
+  },
+  images: {
+    domains: ['images.unsplash.com', 'unsplash.com', 'localhost']
+
+
+  },
+
 }
 
 module.exports = nextConfig

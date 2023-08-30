@@ -1,33 +1,29 @@
 import prisma from "@/lib/prismaInstance.ts";
+
 const jwt = require("jsonwebtoken");
 
 
 export async function POST(req, res) {
   console.log('dans get user info');
-  const response = await req.json()
+  const token = await req.json().token
 
-  const token = response.token
-  const userWithToken = token && await prisma.account.findUnique(
-    {
-      where : {access_token : token}
-    })
 
-  const tokenValid = await jwt.verify(token, process.env.JWT_SECRET)
-  const userId = userWithToken.userId
-  if(tokenValid){
+  const decodedToken = jwt.decode(token)
+  const expirationTime = new Date(decodedToken.exp * 1000); // Convertir en millisecondes
+  const currentTime = new Date();
+  if (currentTime < expirationTime) {
+    console.log("Le JWT n'a pas encore expiré.");
 
-    const user = await prisma.user.findUnique({
-      where :{id : userId}
-    })
+  } else {
     return new Response(JSON.stringify(
       {
-        user
+        status : 401,
+        msg:'token expired'
       }
     ))
+
   }
-  try {
-    
-  } catch (error) {
-    
-  }
+ 
+
+
 }
