@@ -10,7 +10,7 @@ function ModalAddEvent({ showEventModal, close , addEvent}) {
     const [date, setDate] = useState('')
     const [imageSrc, setImageSrc] = useState('../../public/home.jpg')
     const [description, setDescription] = useState('')
-    const [today, setToday] = useState(new Date())
+    const [today, setToday] = useState('')
     console.log(showEventModal)
     useEffect(() => {
         console.log(showEventModal)
@@ -32,13 +32,33 @@ function ModalAddEvent({ showEventModal, close , addEvent}) {
         // t.splice(1,0,l)
         // console.log(t);
         // setToday(t[0]+'-'+ t[1]+'-'+t[2])
-        // console.log(today && today, '----------');
        
     }, [date])
     
     const loadPicture = (e) => {
-        let value = (e.target.value)
-        console.log(value, 'image src')
+        
+
+        let value =e.target.files[0]
+        console.log(value);
+        if (value) {
+            if(value.type !==  'image/jpeg'  && value.type !=='image/jpg' && value.type !== 'image/svg' && value.type !==  'image/png' ){
+                alert('image non supportée, veuillez choisir une image avec une extension .jpg, .png ou .svg')
+                return
+            }
+            if(value.size > 512000){
+                alert('image trop lourde max:500 ko')
+                return
+            }
+            else {
+
+                
+                var imageURL = URL.createObjectURL(value); // Créez une URL pour le fichier
+                
+                
+                // Mettez à jour l'attribut src de l'élément <img> avec l'URL de l'image
+                setImageSrc(imageURL);
+            }
+        }
     }
 
     const handleSubmit = (close) => {
