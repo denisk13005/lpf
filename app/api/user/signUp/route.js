@@ -36,7 +36,7 @@ export async function POST(req, res) {
       )
       console.log(token);
       console.log(newUser);
-      const Account = await prisma.Account.create({
+      const Account = await prisma.Token.create({
         data: {
           userId: newUser.id,
           access_token: token
