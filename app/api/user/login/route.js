@@ -3,6 +3,8 @@ import prisma from "@/lib/prismaInstance.ts";
 import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
+import { NextRequest, NextResponse } from "next/server";
+
 
 export async function POST(req, res) {
   // req.headers.set("Access-Control-Allow-Origin", "*");
@@ -46,4 +48,17 @@ export async function POST(req, res) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function GET(NextRequest, NextResponse) {
+  const userId = await NextRequest.nextUrl.searchParams.get('userId')
+  console.log(userId, '-------------');
+
+  const user = await prisma.user.findMany({
+    where: {
+      id: userId
+    }
+  })
+  console.log(user, '-----------');
+  return new Response(JSON.stringify({ user: user }))
 }
