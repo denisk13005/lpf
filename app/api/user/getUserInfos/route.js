@@ -2,7 +2,7 @@ import prisma from "@/lib/prismaInstance.ts";
 
 const jwt = require("jsonwebtoken");
 
-
+// check si le token est expiré (vallidité du token pas mise en place pour le moment)
 export async function POST(req, res) {
   console.log('dans get user info');
   const token = await req.json().token
@@ -17,13 +17,13 @@ export async function POST(req, res) {
   } else {
     return new Response(JSON.stringify(
       {
-        status : 401,
-        msg:'token expired'
+        status: 401,
+        msg: 'token expired'
       }
     ))
 
   }
- 
+
 
 
 }
