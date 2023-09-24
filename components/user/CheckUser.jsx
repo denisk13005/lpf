@@ -16,11 +16,11 @@ const CheckUser = () => {
   const [tokenInLocalStorage, setTokenInLocalStorage] = useState('')
   useEffect(() => {
     console.log(('here'));
-    if (localStorage.getItem('lpfAccount') !== null) {
-      setTokenInLocalStorage(JSON.parse(localStorage.getItem('lpfAccount')))
+    if (window.localStorage.getItem('lpfAccount') !== null) {
+      setTokenInLocalStorage(JSON.parse(window.localStorage.getItem('lpfAccount')))
     }
 
-
+    console.log(tokenInLocalStorage && tokenInLocalStorage);
 
 
   }, [])
@@ -30,33 +30,44 @@ const CheckUser = () => {
     // findUserInBdd(tokenInLocalStorage)
     checkTokenAndLogin(tokenInLocalStorage)
   }, [tokenInLocalStorage])
+
   /**
    * 
    * @param {Object} tokenInLocalStorage objet contenant les informations de l'utilisateur stocké dans le local storage lors de son inscription 
    */
   const checkTokenAndLogin = async (data) => {
+    console.log(data && data, 'data');
     // récupérer le token de l'user connecté dans le localstorage et son userId
     const userId = data && data.userId
-    console.log(userId);
-    // chercher si popur l'userId enregistré en base le token correspond
+    console.log(userId, 'user id');
+    // chercher si pour l'userId enregistré en base le token correspond
     const res = await axios.post('/api/user/token/getUserToken', { 'userId': userId })
     const tokenObject = await res.data
+    console.log(tokenObject.userAccount, 'tokenObject', userId);
+    const uId = await tokenObject.userAccount.filter(el => el.userId.toString() === userId.toString())
 
-    console.log(tokenObject, 'token object');
+    console.log(uId, 'uId', data.access_token, 'data acces token');
+    const uIdAccessToken = await uId[0]
+
     // login
-    if (data.access_token === !tokenObject.userAccount.access_token) {
-      return
-    } else {
-      // utiliser un paramètres d'url popur passer l'userId et faire une requête dans api/login popur retrouver l'user et remonter ses infos
-      const res = await axios.get(`/api/user/login`, {
-        params: {
-          userId: userId
-        }
-      })
-      const user = await res.data
-      console.log(user);
-    }
+    if (uIdAccessToken) {
 
+      if (data.access_token !== uIdAccessToken.access_token) {
+        return
+      } else {
+        // utiliser un paramètres d'url popur passer l'userId et faire une requête dans api/login popur retrouver l'user et remonter ses infos
+        const res = await axios.get(`/api/user/login`, {
+          params: {
+            userId: userId
+          }
+        })
+        const user = await res.data
+        console.log(user);
+        const userInfos = user.user[0]
+        addUser(userInfos)
+      }
+
+    }
   }
 
 
