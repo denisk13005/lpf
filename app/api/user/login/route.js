@@ -22,7 +22,7 @@ export async function POST(req, res) {
         userId: user.id,
         name: user.name,
         picture: user.picture,
-        role: user.role        
+        role: user.role
       };
       return new Response(
         JSON.stringify({
@@ -54,6 +54,9 @@ export async function GET(NextRequest, NextResponse) {
       id: userId
     }
   })
+
+
+
   console.log(user, '-----------');
   return new Response(JSON.stringify({ user: user }))
 }

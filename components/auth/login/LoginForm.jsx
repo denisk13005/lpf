@@ -63,7 +63,7 @@ const LoginForm = () => {
       const userTokenInBdd = data && data.userAccount.filter(el => el.userId === userRes.userInfos.userId)[0]
       console.log(userTokenInBdd, 'user token in bdd');
 
-      if (localStorage === null) {
+      if (localStorage === null || localStorage.userId !== userRes.userInfos.userId) {
         window.localStorage.setItem('lpfAccount', JSON.stringify(userTokenInBdd))
       }
 
