@@ -2,16 +2,15 @@ import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prismaInstance.ts";
 
 export async function POST(NextRequest) {
+  console.log('tata');
   try {
-    const userLpfAccount = await NextRequest.json()
+    // const req = await NextRequest.json()
+    // const userId = req.userId
+    // console.log(userId, '-----------------------------');
     // trouve le token relié à l'userId dans Account
 
-    const userAccount = await prisma.token.findMany({
-      where: {
-        userId: userLpfAccount.userId.toString()
-      }
-
-    })
+    const userAccount = await prisma.token.findMany()
+    console.log(userAccount, 'userAccount');
     return NextResponse.json({ userAccount: userAccount, status: 200 })
   }
   catch (error) {

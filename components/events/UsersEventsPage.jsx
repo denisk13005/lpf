@@ -18,25 +18,26 @@ function UsersEventsPage() {
   const getEvents = async () => {
     const res = await axios.get('/api/events/getEvents')
     console.log(res);
-    const events =    res.data
+    const events = res.data
+    console.log(events, '-----');
     setevents(events)
   }
-  useEffect( () => {
-     getEvents()
+  useEffect(() => {
+    getEvents()
     console.log(events);
-    console.log(user,'user');
+    console.log(user, 'user');
   }, [])
   useEffect(() => {
     console.log(showEventModal)
   }, [showEventModal])
 
   const close = (data) => {
-    console.log(data,'data')
+    console.log(data, 'data')
     setShowEventModal(!data)
   }
 
   const addEvent = async ({ date, picture, description }) => {
-    const event = await axios.post('/api/events/postEvent',{
+    const event = await axios.post('/api/events/postEvent', {
       "name": "1er event",
       "date": date,
       "description": description,
@@ -45,8 +46,8 @@ function UsersEventsPage() {
     }).then(res => res.status === 200 && getEvents())
 
 
-    
-  } 
+
+  }
 
 
   return (
@@ -62,7 +63,7 @@ function UsersEventsPage() {
         }
       </div>
       {
-        events.map((event,id) => (
+        events.map((event, id) => (
 
           <EventTile props={event} key={id} />
         ))
