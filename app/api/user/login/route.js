@@ -22,12 +22,7 @@ export async function POST(req, res) {
         userId: user.id,
         name: user.name,
         picture: user.picture,
-        role: user.role
-        // token: jwt.sign(
-        //   { userId: user.id }, //on signe le token avec l'id de l'utilisateur pour ne pas qu'un autre utilisateur puisse modifier un produit (seul celui avec l'id peut modifier ses produits)
-        //   process.env.JWT_SECRET, //on définit un sel pour le token
-        //   { expiresIn: "24h" } //on définit une durée de validité du token
-        // ),
+        role: user.role        
       };
       return new Response(
         JSON.stringify({

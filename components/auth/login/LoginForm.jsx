@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -12,13 +12,31 @@ import styles from './styles.module.scss';
 const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' });
 
+
   const { user, addUser } = useUserContext();
-  const [tokenInLocalStorage, setTokenInLocalStorage] = useState('')
+  const [lpfAccountInLocalStorage, setLpfAccountInLocalStorage] = useState('')
 
   const router = useRouter();
 
-  // localStorage.getItem('lpfAccount') && setTokenInLocalStorage(localStorage.getItem('lpfAccount').token)
-  // console.log(tokenInLocalStorage,);
+  const checkUserLogged = async (data) => {
+    // if (localStorage.getItem('lpfAccount') !== null) {
+    //   setLpfAccountInLocalStorage(JSON.parse(localStorage.getItem('lpfAccount')))
+    // }
+    // if (lpfAccountInLocalStorage.userId === user) {
+    //   return
+    // }
+    // else {
+
+    // const userId = tokens && tokens.userAccount.filter(el => el.userId === user).userId
+    console.log(tokens, user && user[0].userId, 'userId in login');
+
+    // }
+  }
+
+
+
+
+
 
   const loggin = async (e) => {
     e.preventDefault();
@@ -30,20 +48,31 @@ const LoginForm = () => {
     });
     let userRes = await res.data;
 
-    // check if user had a token in the bdd
 
-    
-    // if(tokenInLocalStorage){
-      
-    // }
 
     addUser(userRes.userInfos);
     console.log(userRes, 'user res');
     if (userRes) {
-      alert('utilisateur connecté');
+      console.log('userr connected')
+      const localStorage = window.localStorage.getItem('lpfAccount')
+      console.log(localStorage);
+      // get token of user connected
+      const res = await axios.post('/api/user/token/getUserToken')
+      console.log(res);
+      const data = await res.data
+      const userTokenInBdd = data && data.userAccount.filter(el => el.userId === userRes.userInfos.userId)[0]
+      console.log(userTokenInBdd, 'user token in bdd');
+
+      if (localStorage === null) {
+        window.localStorage.setItem('lpfAccount', JSON.stringify(userTokenInBdd))
+      }
+
+
+
       // mettre à jour le token avec l'userId (faire un put)
       router.push('/');
     }
+
   };
 
   return (
