@@ -2,7 +2,6 @@ import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prismaInstance.ts";
 
 export async function POST(NextRequest) {
-  console.log('tata');
   try {
     // const req = await NextRequest.json()
     // const userId = req.userId
