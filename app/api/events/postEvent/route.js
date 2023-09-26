@@ -1,6 +1,7 @@
 import prisma from '@/lib/prismaInstance';
 
 export async function POST(req, res) {
+  console.log('dans post ');
   try {
     const event = await req.json()
     console.log(event);

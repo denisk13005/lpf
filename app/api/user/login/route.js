@@ -3,6 +3,8 @@ import prisma from "@/lib/prismaInstance.ts";
 import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
+import { NextRequest, NextResponse } from "next/server";
+
 
 export async function POST(req, res) {
   // req.headers.set("Access-Control-Allow-Origin", "*");
@@ -21,11 +23,6 @@ export async function POST(req, res) {
         name: user.name,
         picture: user.picture,
         role: user.role
-        // token: jwt.sign(
-        //   { userId: user.id }, //on signe le token avec l'id de l'utilisateur pour ne pas qu'un autre utilisateur puisse modifier un produit (seul celui avec l'id peut modifier ses produits)
-        //   process.env.JWT_SECRET, //on définit un sel pour le token
-        //   { expiresIn: "24h" } //on définit une durée de validité du token
-        // ),
       };
       return new Response(
         JSON.stringify({
@@ -46,4 +43,20 @@ export async function POST(req, res) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function GET(NextRequest, NextResponse) {
+  const userId = await NextRequest.nextUrl.searchParams.get('userId')
+  console.log(userId, '-------------');
+
+  const user = await prisma.user.findMany({
+    where: {
+      id: userId
+    }
+  })
+
+
+
+  console.log(user, '-----------');
+  return new Response(JSON.stringify({ user: user }))
 }

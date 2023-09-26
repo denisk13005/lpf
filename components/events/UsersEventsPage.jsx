@@ -7,6 +7,7 @@ import { useUserContext } from '@/context/UserContext';
 import EventTile from './EventTile'
 import data from '@/mocks/eventsMock.json'
 import ModalAddEvent from './ModalAddEvent';
+import axios from 'axios';
 
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
@@ -14,29 +15,40 @@ function UsersEventsPage() {
 
   const router = useRouter()
   const [events, setevents] = useState([])
+  const getEvents = async () => {
+    const res = await axios.get('/api/events/getEvents')
+    console.log(res);
+    const events = res.data
+    console.log(events, '-----');
+    setevents(events)
+  }
   useEffect(() => {
-    setevents(data.events)
+    getEvents()
+    console.log(events);
+    console.log(user, 'user');
   }, [])
   useEffect(() => {
     console.log(showEventModal)
   }, [showEventModal])
 
   const close = (data) => {
-    console.log(data,'data')
+    console.log(data, 'data')
     setShowEventModal(!data)
   }
 
-  const addEvent = ({ date, picture, description }) => {
-    console.log(date, picture, description, '---')
-    events.push({
-      "id": 3,
+  const addEvent = async ({ date, picture, description }) => {
+    console.log(user);
+    const event = await axios.post('/api/events/postEvent', {
       "name": "1er event",
       "date": date,
       "description": description,
       "picture": "https://images.unsplash.com/photo-1545048702-79362596cdc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG5vZWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      "userId": 1
-    })
-  } 
+      "userId": user.id
+    }).then(res => res.status === 200 && getEvents())
+
+
+
+  }
 
 
   return (
@@ -47,12 +59,12 @@ function UsersEventsPage() {
         <h1 className={styles.title}>Nos Evénements</h1>
         {
           (user && user.role === 'ADMIN') &&
-          <button className={styles.btn} onClick={() => setShowEventModal(true)}>Ajouter un événement</button>
+          <button className={styles.btn} onClick={() => router.push('/events/addEvent')}>Ajouter un événement</button>
 
         }
       </div>
       {
-        events.map((event,id) => (
+        events.map((event, id) => (
 
           <EventTile props={event} key={id} />
         ))

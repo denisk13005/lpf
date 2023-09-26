@@ -82,20 +82,26 @@
 // -----------------------modal add event part -----------------
 .modalOverlay {
     width: 100%;
-    height: 100vh;
-    background: rgba($color: white, $alpha: 1);
+    height: 100%;
+    border-radius: 10px;
+    background: rgba($color: rgb(230, 230, 230), $alpha: 1);
     position: absolute;
     top: 0;
     left: 0;
     display: flex;
     justify-content: center;
     z-index: 1000;
+    padding-bottom: 50px;
+
+   
 
     .modalContainer {
-        margin-top: 25px;
-        width: 90%;
-        height: 80%;
+        position: relative;
+
+        width: 100%;
+        height: 100%;
         border-radius: 10px;
+        padding-bottom: 50px;
         box-shadow: 2px 2px 4px lightgrey;
 
         h5 {
@@ -104,6 +110,36 @@
             font-size: 24px;
             font-family: Georgia, 'Times New Roman', Times, serif;
         }
+        .btnValid {
+            position :absolute;
+            bottom:0;
+            left: 50%;
+            height : 40px;
+            transform: translate(-50%);
+            padding: 10px;
+            margin:auto;
+            border: none;
+            color: white;
+            background: rgba($color: black, $alpha: 0.6);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all .4s;
+            &:hover {
+                background: white;
+                border: 1px solid rgba($color: black, $alpha: 0.6);;
+                color: rgba($color: black, $alpha: 0.6);
+                scale: 1.05;
+            }
+    
+            @media screen and (max-width: 700px) {
+                margin: auto;
+                margin-top: 40px;
+                width: 70%;
+            }
+    
+        }
+       
 
        
     }
@@ -139,7 +175,7 @@
     }
 
     .description {
-        height: 40%;
+        height: 20%;
 
         textarea {
             height: 100%;
