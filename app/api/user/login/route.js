@@ -31,14 +31,7 @@ export async function POST(req, res) {
         })
       );
     } else {
-      const unauthorizedResponse = new Response("Requête non autorisée", {
-        status: 401,
-        statusText: "Unauthorized",
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-      return unauthorizedResponse;
+      return NextResponse.json({ message: 'mot de passe ou identifiant incorrect', status: 400 })
     }
   } catch (error) {
     console.log(error);

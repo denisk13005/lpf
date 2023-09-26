@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: '', password: '' });
+  const [errorMsg, setErrorMsg] = useState('')
 
 
   const { user, addUser } = useUserContext();
@@ -47,6 +48,10 @@ const LoginForm = () => {
       password: data.password,
     });
     let userRes = await res.data;
+    if (userRes.status === 400) {
+      setErrorMsg(userRes.message)
+      return
+    }
 
 
 
@@ -115,6 +120,7 @@ const LoginForm = () => {
               />
             </div>
           </div>
+          <span style={{ color: 'rgb(255,5,100)', fontSize: '18px', fontWeight: 'bold', textShadow: '2px 2px 5px white' }}> {errorMsg && errorMsg}</span>
 
           <div>
             <button type='submit'>Se Connecter</button>
