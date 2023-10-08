@@ -23,17 +23,7 @@ function ModalAddEvent({ showEventModal, close , addEvent}) {
         setToday(new Date().getFullYear()+'-'+( new Date().getMonth() + 1)+'-'+ new Date().getDate())
         console.log(today);
     }, [])
-    useEffect(() => {
-       
-        // console.log(t);
-        // let l = t[t.length-1]
-        // t.splice(2)
-        // console.log(t);
-        // t.splice(1,0,l)
-        // console.log(t);
-        // setToday(t[0]+'-'+ t[1]+'-'+t[2])
-       
-    }, [date])
+
     
     const loadPicture = (e) => {
         

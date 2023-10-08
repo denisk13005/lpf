@@ -3,11 +3,13 @@ import React, { Suspense, useState, useRef, useEffect } from 'react';
 import { useUserContext } from '/context/UserContext';
 import { redirect } from 'next/navigation';
 import styles from './styles.module.scss'
+import { getImageUrl } from '@/lib/getImageUrl';
 import Image from 'next/image';
 
 const UserProfile = () => {
   const { user } = useUserContext();
   const [changeDescription, setChangeDescription] = useState(false)
+  const [imageSrc, setImageSrc] = useState('/chien.jpg')
   const [description, setDescription] = useState('')
   const area = useRef(null)
   const picture = useRef(null)
@@ -21,9 +23,21 @@ const UserProfile = () => {
       setChangeDescription(!changeDescription)
     }
   }
-  const changePicture = () => {
+  const changePicture = (e) => {
+    const input = e.target.children[0]
+    if (input) {
+      input.click()
+      input.addEventListener('change', (e) => loadPicture(e))
+    }
+  }
+
+  const loadPicture = (e) => {
+    console.log(e.target.files);
+    setImageSrc(getImageUrl(e).imageURL);
 
   }
+
+
   useEffect(() => {
     area.current.focus()
   }, [changeDescription])
@@ -40,7 +54,7 @@ const UserProfile = () => {
       <Suspense fallback={"...loading..."} >
 
         <div className={styles.pictureContainer}>
-          <Image className={styles.image} src='/chien.jpg' fill alt="photo de profil de l'utilisateur " ref={picture} />
+          <Image className={styles.image} src={imageSrc} fill alt="photo de profil de l'utilisateur " ref={picture} />
         </div>
       </Suspense>
 
@@ -49,7 +63,7 @@ const UserProfile = () => {
       <div className={styles.btnsContainer}>
 
 
-        <button className={styles.btn} onClick={() => changePicture()}>Ajouter ou modifier ma photo</button>
+        <button className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
 
         <button className={styles.btn} onClick={() => changeDescriptionText()}>{!changeDescription ? (description.length ? 'Modifier la description' : 'Ajouter une description') : 'enregistrer la description'}</button>
       </div>

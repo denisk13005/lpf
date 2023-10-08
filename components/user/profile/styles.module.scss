@@ -42,6 +42,9 @@
   border: none;
   box-shadow: 1px 1px 6px rgb(250, 93, 229);
   cursor: pointer;
+  input{
+    display: none;
+  }
 }
 .hidden {
   display: none;

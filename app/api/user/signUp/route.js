@@ -6,10 +6,26 @@ const jwt = require("jsonwebtoken");
 
 
 export async function POST(req, res) {
-  const userInfos = await req.json();
-  console.log(userInfos);
+  const userInfos = await req.formData();
+  const name = await userInfos.get('name')
+  const email = await userInfos.get('email')
+  const password = await userInfos.get('password')
+  let picture = ""
+  for (const entry of Array.from(userInfos.entries())) {
+    const [key, value] = entry
+
+    const isFile = typeof value == "object";
+    if (isFile) {
+      const blob = value
+      picture = Buffer.from(await blob.arrayBuffer());
+
+    }
+
+
+
+  }
   const user = await prisma.user.findUnique({
-    where: { email: userInfos.email },
+    where: { email: email },
   });
 
   try {
@@ -17,15 +33,16 @@ export async function POST(req, res) {
       console.log('mauvais identifiants ! veuillez changer vos identifiants');
     }
     else {
-      const hashPassword = await bcrypt.hash(userInfos.password, 10)
+      const hashPassword = await bcrypt.hash(password, 10)
 
 
       const newUser = await prisma.User.create(
         {
           data: {
-            name: userInfos.name,
-            email: userInfos.email,
-            password: hashPassword
+            name: name,
+            email: email,
+            password: hashPassword,
+            picture: picture.toString('base64')
           }
         }
       )

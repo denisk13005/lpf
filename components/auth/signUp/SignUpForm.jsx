@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import styles from '../login/styles.module.scss'
+import Image from 'next/image';
+import { getImageUrl } from "@/lib/getImageUrl";
 
 
 export default function SignUpForm() {
@@ -13,20 +15,35 @@ export default function SignUpForm() {
   const [disabledSubmit, setDisabledSubmit] = useState(true)
   const [checkNbOfChar, setCheckNbOfChar] = useState(false)
   const [nbOfCarRestant, setNbOfCarRestant] = useState(6)
+  const [imageSrc, setImageSrc] = useState('/chien.jpg')
   const registerUser = async (e) => {
     console.log(data, 'here');
     e.preventDefault();
+    const formDataUserToSend = new FormData()
+    formDataUserToSend.append('name', data.name)
+    formDataUserToSend.append('email', data.email)
+    formDataUserToSend.append('password', data.password)
+    formDataUserToSend.append('picture', data.picture)
 
-    const newUserData = await axios.post("/api/user/signUp", data)
-    console.log(newUserData);
-    if (newUserData) {
+    const response = await fetch("/api/user/signUp", {
+      method: 'POST',
+      body: formDataUserToSend
+    })
+      .then(data => data.json())
+      .then(data => {
+        console.log(data)
+        if (data.status === 201) {
 
-      //  const token = newUserData.data.Account.access_token
-      const account = newUserData.data.Account
-      console.log(account, "account");
-      localStorage.setItem('lpfAccount', JSON.stringify(account))
-      router.push('/login')
-    }
+          //  const token = newUserData.data.Account.access_token
+          const account = data.Account
+          console.log(account, "account");
+          localStorage.setItem('lpfAccount', JSON.stringify(account))
+          router.push('/login')
+        }
+      })
+
+
+
   };
   useEffect(() => {
     if (data.password.length > 0) {
@@ -41,6 +58,14 @@ export default function SignUpForm() {
     }
   }, [data.password.length])
 
+
+  const loadPicture = (e) => {
+    console.log(e.target.files);
+    setImageSrc(getImageUrl(e).imageURL);
+    setData({ ...data, picture: e.target.files[0] })
+
+  }
+
   return (
     <>
       <div className={styles.formContainer}>
@@ -49,6 +74,11 @@ export default function SignUpForm() {
             Créez votre compte
           </h2>
         </div>
+        <div className={styles.imageContainer}>
+          <Image src={imageSrc} alt="photo de l'utilisateur" fill />
+        </div>
+        <label htmlFor="changePicture">Changer ma photo</label>
+        <input type="file" onChange={(e) => loadPicture(e)} id="changePicture" />
 
         <div >
           <form onSubmit={registerUser}>

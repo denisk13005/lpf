@@ -12,6 +12,7 @@ export async function POST(req) {
   let date = await formData.get('date')
   let picture = ""
   console.log(formData, 'formData');
+
   for (const entry of Array.from(formData.entries())) {
     const [key, value] = entry
 
@@ -26,7 +27,6 @@ export async function POST(req) {
 
   }
   console.log(description, date, name, userId, picture);
-
 
 
 
