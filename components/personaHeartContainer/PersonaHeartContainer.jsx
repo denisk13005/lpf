@@ -27,7 +27,7 @@ const PersonaHeartContainer = () => {
             <div className={styles.userPastille}>
               <Image
                 alt='user'
-                src={user.picture}
+                src={`data:image/png;base64,${user.picture}`}
                 width={100}
                 height={100}
               />

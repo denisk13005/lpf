@@ -45,6 +45,12 @@ const UserProfile = () => {
     redirect('/login')
   }
 
+  useEffect(() => {
+    if (user.picture) {
+      setImageSrc(`data:image/png;base64,${user.picture}`)
+    }
+  }, [user])
+
 
   return (
     <div className={styles.userProfileContainer}>
