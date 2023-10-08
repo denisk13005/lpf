@@ -18,6 +18,7 @@
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
     "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
     "next": "13.4.4",
     "nextjs-cors": "^2.1.2",
     "prisma": "^5.3.1",
