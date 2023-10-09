@@ -65,7 +65,7 @@ function AddEvent() {
       method: 'POST',
       body: formDataEventToSend
     })
-      .then(res => res.status === 201 && router.push('/events'))
+      .then(res => res.json()).then(data => data.status === 201 && router.push('/events'))
     console.log(event);
 
 

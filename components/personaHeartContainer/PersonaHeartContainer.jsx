@@ -28,8 +28,7 @@ const PersonaHeartContainer = () => {
               <Image
                 alt='user'
                 src={`data:image/png;base64,${user.picture}`}
-                width={100}
-                height={100}
+                fill
               />
             </div>
           </Link>

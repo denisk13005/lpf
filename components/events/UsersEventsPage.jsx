@@ -8,6 +8,7 @@ import EventTile from './EventTile'
 import data from '@/mocks/eventsMock.json'
 import ModalAddEvent from './ModalAddEvent';
 import axios from 'axios';
+import Loading from './../../app/events/[event]/loading';
 
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
@@ -48,10 +49,11 @@ function UsersEventsPage() {
         }
       </div>
       {
-        events.map((event, id) => (
+        events.length ? (
+          events.map((event, id) => (
 
-          <EventTile props={event} key={id} />
-        ))
+            <EventTile props={event} key={id} />
+          ))) : <div style={{ position: 'absolute', top: '100px', textAlign: 'center', fontSize: '18px', width: '100%' }}>...Chargement des événements...</div>
       }
 
     </div>

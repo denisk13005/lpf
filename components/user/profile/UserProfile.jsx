@@ -69,7 +69,7 @@ const UserProfile = () => {
       <div className={styles.btnsContainer}>
 
 
-        <button className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
+        <button disabled className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
 
         <button className={styles.btn} onClick={() => changeDescriptionText()}>{!changeDescription ? (description.length ? 'Modifier la description' : 'Ajouter une description') : 'enregistrer la description'}</button>
       </div>
