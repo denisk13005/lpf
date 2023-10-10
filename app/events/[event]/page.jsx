@@ -31,7 +31,7 @@ function Event({ params }) {
 
     const getImgUrl = (evt) => {
         if (evt[0].picture !== null) {
-            setImgSrc(evt[0].picture)
+            setImgSrc(`data:image/png;base64,${evt[0].picture}`)
         } else {
             setImgSrc('/home.jpg')
         }
