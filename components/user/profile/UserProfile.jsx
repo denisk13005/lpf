@@ -31,9 +31,22 @@ const UserProfile = () => {
     }
   }
 
+  const updatePictureInDb = async (updatedPicture) => {
+    console.log(user, updatedPicture);
+    const formDataUserToUpdate = new FormData()
+    formDataUserToUpdate.append('id', user.id)
+    formDataUserToUpdate.append('picture', updatedPicture)
+    const response = await fetch('/api/user/updateUserInfos', {
+      method: 'PUT',
+      body: formDataUserToUpdate
+    })
+  }
+
   const loadPicture = (e) => {
     console.log(e.target.files);
     setImageSrc(getImageUrl(e).imageURL);
+    updatePictureInDb(e.target.files[0])
+
 
   }
 
@@ -69,7 +82,7 @@ const UserProfile = () => {
       <div className={styles.btnsContainer}>
 
 
-        <button disabled className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
+        <button className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
 
         <button className={styles.btn} onClick={() => changeDescriptionText()}>{!changeDescription ? (description.length ? 'Modifier la description' : 'Ajouter une description') : 'enregistrer la description'}</button>
       </div>
