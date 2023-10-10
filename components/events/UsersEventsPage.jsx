@@ -5,11 +5,8 @@ import styles from './styles.module.scss'
 import { useUserContext } from '@/context/UserContext';
 
 import EventTile from './EventTile'
-import data from '@/mocks/eventsMock.json'
-import ModalAddEvent from './ModalAddEvent';
 import axios from 'axios';
-import Loading from './../../app/events/[event]/loading';
-
+import { Skeleton } from '@mui/material';
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
   const [showEventModal, setShowEventModal] = useState(false)
@@ -53,7 +50,15 @@ function UsersEventsPage() {
           events.map((event, id) => (
 
             <EventTile props={event} key={id} />
-          ))) : <div style={{ position: 'absolute', top: '100px', textAlign: 'center', fontSize: '18px', width: '100%' }}>...Chargement des événements...</div>
+          ))) : <div>
+
+
+          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
+          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
+          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
+        </div>
+
+
       }
 
     </div>
