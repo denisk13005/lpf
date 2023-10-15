@@ -52,9 +52,10 @@
 .tileContainer {
     margin: auto;
     width: 90%;
+    max-width: 1040px;
     height: 40vh;
     min-height: 300px;
-    box-shadow: 2px 4px vh grey;
+    box-shadow: 2px 4px 5px grey;
     border-radius: 10px;
 
     .eventDate {

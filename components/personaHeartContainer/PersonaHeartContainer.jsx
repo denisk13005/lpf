@@ -26,6 +26,7 @@ const PersonaHeartContainer = () => {
           <Link href={'/profile'}>
             <div className={styles.userPastille}>
               <Image
+                className={styles.image}
                 alt='user'
                 src={`data:image/png;base64,${user.picture}`}
                 fill

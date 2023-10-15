@@ -1,12 +1,12 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './styles.module.scss'
 import { useUserContext } from '@/context/UserContext';
 
 import EventTile from './EventTile'
-import axios from 'axios';
-import { Skeleton } from '@mui/material';
+import axios from 'axios'
+import Loading from './Loading';
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
   const [showEventModal, setShowEventModal] = useState(false)
@@ -45,21 +45,20 @@ function UsersEventsPage() {
 
         }
       </div>
+
       {
+
         events.length ? (
-          events.map((event, id) => (
 
-            <EventTile props={event} key={id} />
-          ))) : <div>
+          events.map((event, id) =>
 
-
-          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
-          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
-          <Skeleton variant="rectangular" animation="wave" width={'90%'} height={200} style={{ margin: 'auto', marginBottom: '25px' }} />
-        </div>
-
-
+            <EventTile props={event} key={id} />)
+        ) : <Loading />
       }
+
+
+
+
 
     </div>
   )
