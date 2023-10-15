@@ -20,6 +20,9 @@
 }
 .menu {
   cursor: pointer;
+  font-family: Verdana, sans-serif;
+  color: white;
+  font-size: 14px;
   @media screen and (min-width: 769px) {
     display: none;
   }

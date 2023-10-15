@@ -8,6 +8,7 @@
   width: 4.8125rem;
   @media screen and (max-width: 769px) {
     filter: invert(1);
+    justify-content: flex-end;
   }
   
 }
