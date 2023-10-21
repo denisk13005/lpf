@@ -2,9 +2,12 @@
   width: 100%;
   min-height: 100vh;
   height: auto;
+  max-width: 1980px;
+  margin: auto;
+  background-color: rgba($color: rgb(237, 237, 237), $alpha: 0.8);
+  padding-top: 70px;
   h3{
     text-align: center;
-    margin-top: 25px;
     font-size: 20px;
     z-index: 2;
     display: block;
@@ -12,15 +15,17 @@
   .datePart {
     margin-top: 45px;
     text-align: center;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 700;
     text-shadow: 2px 2px 4px rgba($color: white, $alpha: .8);
   }
   .picturePart {
-    width: 100%;
-    height: 40vh;
+    width: 50%;
+    height: 50vh;
   position: relative;
-  margin:  25px 0px 35px;
+  margin:  55px auto 25px;
+  overflow: hidden;
+  border-radius: 25px;
 
  
 
@@ -28,6 +33,9 @@
     Image{
       object-fit: cover;
       z-index: 1;
+    }
+    @media screen and (max-width : 700px) {
+      width: 90%;
     }
   }
   .descriptionPart{

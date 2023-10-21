@@ -1,8 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import axios from 'axios'
-import data from '@/mocks/eventsMock.json'
+import Skeleton from '@mui/material/Skeleton';
+import { IoIosArrowDropleftCircle } from 'react-icons/io';
+
+
 
 import styles from './styles.module.scss'
 
@@ -41,23 +45,36 @@ function Event({ params }) {
         <div className={styles.eventContainer}>
 
             {
-                event[0] &&
+
                 <div className={styles.partContainer}>
                     <div style={{ position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: '0px', top: '-5px', fontSize: '24px' }}>{'<'}</span>
+                        <Link href="/events">
+                            <span style={{ position: 'absolute', left: '15px', top: '-2px', fontSize: '24px', cursor: 'pointer' }}>    <IoIosArrowDropleftCircle />
+                            </span>
+                        </Link>
                         <h3>Information sur l'événement </h3>
                     </div>
 
 
-                    <div className={styles.datePart}>{new Date(event[0].date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
                     {
+                        event[0] ?
+                            <>
 
-                        <div className={styles.picturePart}>
-                            <Image src={imgSrc} fill alt='event image' />
+                                <div className={styles.datePart}>{new Date(event[0].date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
 
-                        </div>
+                                <div className={styles.picturePart}>
+                                    <Image src={imgSrc} fill alt='event image' />
+
+                                </div>
+                                <div className={styles.descriptionPart}>{event[0].description}</div>
+
+                            </>
+                            :
+                            <div className={styles.picturePart}>
+                                <Skeleton width={'100%'} height={'100%'} />
+
+                            </div>
                     }
-                    <div className={styles.descriptionPart}>{event[0].description}</div>
                 </div>
             }
         </div>
