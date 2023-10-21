@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useUserContext } from '@/context/UserContext';
 
+
 import styles from './styles.module.scss';
 
 // schéma de validation des champs fait grâce a yup
@@ -15,24 +16,10 @@ const LoginForm = () => {
 
 
   const { user, addUser } = useUserContext();
-  const [lpfAccountInLocalStorage, setLpfAccountInLocalStorage] = useState('')
 
   const router = useRouter();
 
-  const checkUserLogged = async (data) => {
-    // if (localStorage.getItem('lpfAccount') !== null) {
-    //   setLpfAccountInLocalStorage(JSON.parse(localStorage.getItem('lpfAccount')))
-    // }
-    // if (lpfAccountInLocalStorage.userId === user) {
-    //   return
-    // }
-    // else {
 
-    // const userId = tokens && tokens.userAccount.filter(el => el.userId === user).userId
-    console.log(tokens, user && user[0].userId, 'userId in login');
-
-    // }
-  }
 
 
 
@@ -55,18 +42,17 @@ const LoginForm = () => {
 
 
 
-    addUser(userRes.userInfos);
-    console.log(userRes, 'user res');
     if (userRes) {
       console.log('userr connected')
       const localStorage = window.localStorage.getItem('lpfAccount')
       console.log(localStorage);
       // get token of user connected
       const res = await axios.post('/api/user/token/getUserToken')
-      console.log(res);
       const data = await res.data
+      if (!data.status === 200) return
+      addUser(userRes.userInfos);
+
       const userTokenInBdd = data && data.userAccount.filter(el => el.userId === userRes.userInfos.userId)[0]
-      console.log(userTokenInBdd, 'user token in bdd');
 
       if (localStorage === null || localStorage.userId !== userRes.userInfos.userId) {
         window.localStorage.setItem('lpfAccount', JSON.stringify(userTokenInBdd))
@@ -74,7 +60,6 @@ const LoginForm = () => {
 
 
 
-      // mettre à jour le token avec l'userId (faire un put)
       router.push('/');
     }
 

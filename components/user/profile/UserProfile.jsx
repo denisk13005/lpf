@@ -14,6 +14,11 @@ const UserProfile = () => {
   const area = useRef(null)
   const picture = useRef(null)
 
+  if (!user) {
+    redirect('/login')
+  }
+
+
   const changeDescriptionText = () => {
     setChangeDescription(!changeDescription)
   }
@@ -54,9 +59,6 @@ const UserProfile = () => {
   useEffect(() => {
     area.current.focus()
   }, [changeDescription])
-  if (!user) {
-    redirect('/login')
-  }
 
   useEffect(() => {
     if (user.picture) {
@@ -82,7 +84,7 @@ const UserProfile = () => {
       <div className={styles.btnsContainer}>
 
 
-        <button className={styles.btn} onClick={(e) => changePicture(e)}>Ajouter ou modifier ma photo <input type='file' /></button>
+        <button className={styles.btn} onClick={changePicture}>Ajouter ou modifier ma photo <input type='file' /></button>
 
         <button className={styles.btn} onClick={() => changeDescriptionText()}>{!changeDescription ? (description.length ? 'Modifier la description' : 'Ajouter une description') : 'enregistrer la description'}</button>
       </div>

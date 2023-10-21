@@ -92,11 +92,18 @@
 
   .picture {
       height: 40%;
-      position: relative;
+      margin : auto;
+      width : 50%;
+      @media screen and (max-width:700px)  {
+        width: 95%;
+      }
+
   }
 
   .description {
       height: 20%;
+      width: 95%;
+      margin: auto;
 
       textarea {
           height: 100%;

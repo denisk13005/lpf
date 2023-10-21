@@ -3,6 +3,8 @@ import UserContextProvider from 'context/UserContextProvider';
 import styles from './page.module.scss';
 import Header from '@/components/header/Header';
 
+
+
 export const metadata = {
   title: 'la petite friperie',
   description: 'friperie solidaire',
@@ -18,10 +20,14 @@ export const metadata = {
  * @returns {JSX.Element} The root layout component.
  */
 export default function RootLayout({ children }) {
+
   return (
     <html lang='fr'>
       <body className={styles.bodyContainer}>
+
+
         <UserContextProvider>
+
           <Header />
           <section className={styles.sectionContainer}>{children}</section>
         </UserContextProvider>

@@ -7,9 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export async function POST(req, res) {
-  // req.headers.set("Access-Control-Allow-Origin", "*");
-  // req.headers.set("Access-Control-Allow-Methods", "POST");
-  // req.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
   const userInfos = await req.json();
   const user = await prisma.user.findUnique({
     where: { email: userInfos.email },
@@ -40,7 +38,6 @@ export async function POST(req, res) {
 
 export async function GET(NextRequest, NextResponse) {
   const userId = await NextRequest.nextUrl.searchParams.get('userId')
-  console.log(userId, '-------------');
 
   const user = await prisma.user.findMany({
     where: {
@@ -50,6 +47,6 @@ export async function GET(NextRequest, NextResponse) {
 
 
 
-  console.log(user, '-----------');
+  console.log(user, 'user -----------');
   return new Response(JSON.stringify({ user: user }))
 }

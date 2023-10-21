@@ -19,8 +19,12 @@
     .hanger {
       font-size:124px;
       color : white;
-      margin-top: -20px;
-      margin-bottom: -30px;
+      margin-top: -10px;
+      margin-bottom: -10px;
+      scale :0;
+      animation: apparition 1s;
+      animation-delay: 1s;
+      animation-fill-mode: both ;
       @media screen and (min-width : 769px) {
         display :none
       }
@@ -28,7 +32,7 @@
     @media screen and (max-width : 768px) {
       flex-direction : column;
       align-items:center;
-      margin-top: 200px;
+      margin-top: 100px;
     }
     div{
       font-size: 74px;
@@ -56,4 +60,12 @@
     background: radial-gradient(circle, rgba(247,185,208,1) 0%, rgba(252,70,226,0.8547619731486344) 100%);
   }
 
+}
+@keyframes apparition {
+  from {
+    scale: 0;
+  }
+  to {
+    scale :1
+  }
 }

@@ -30,7 +30,12 @@ export async function POST(req, res) {
 
   try {
     if (user) {
-      console.log('mauvais identifiants ! veuillez changer vos identifiants');
+      return new Response(
+        JSON.stringify({
+          status: 401,
+          msg: 'mauvais identifiants ! veuillez changer vos identifiants'
+        })
+      );
     }
     else {
       const hashPassword = await bcrypt.hash(password, 10)

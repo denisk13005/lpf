@@ -83,11 +83,12 @@ function AddEvent() {
               <label htmlFor="date">Date de l'événement :</label>
               <input type="date" id='date' min={today} onChange={(e) => setEvent({ ...event, date: new Date(e.target.value) })} />
             </div>
-            <div className={`${styles.partEventContainer} ${styles.picture} `}>
-              <label htmlFor="picture">Ajouter une photo pour l'événement</label>
-              <input type='file' name="picture" id='picture' style={{ position: 'absolute', bottom: '0px', left: '0px' }}
+            <div className={` ${styles.picture} `}>
+              <div style={{ textAlign: 'center', fontSize: '24px', marginBottom: '40px' }}>Ajouter une photo</div>
+
+              <input type='file' name="picture" id='picture'
                 refs='inputPicture' onChange={(e) => loadPicture(e)} />
-              <div style={{ position: 'relative', height: '75%', background: 'white', boxShadow: '1px 1px 4px lightGrey' }}>
+              <div style={{ position: 'relative', height: '75%', background: 'white', boxShadow: '1px 1px 4px lightGrey', marginTop: '20px' }}>
 
                 <Image src={imageSrc} fill alt='image de l événement' />
               </div>
