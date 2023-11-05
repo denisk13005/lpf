@@ -8,6 +8,7 @@ export async function PUT(req, res) {
   console.log('dans put');
   const data = await req.formData()
   const userId = await data.get('id')
+  const presentation = await data.get('presentation')
   let picture = await data.get('picture')
   console.log(userId, picture);
   for (const entry of Array.from(data.entries())) {
@@ -30,7 +31,8 @@ export async function PUT(req, res) {
         id: userId,
       },
       data: {
-        picture: picture.toString('base64')
+        picture: picture.toString('base64'),
+        presentation: presentation
       },
     })
     console.log(updateUser);
