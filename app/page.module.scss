@@ -1,9 +1,17 @@
 .bodyContainer {
   min-height: 100vh;
   min-width:100%;
+  background-color: #f7b9d0;
+  z-index: 9;
+  // background-image: url('../public/home.jpg');
+  // background-repeat: no-repeat;
+  // background-size: cover;
+}
+.background {
   background-image: url('../public/home.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 10;
 }
 .sectionContainer{
   height: 100vh ;
@@ -53,7 +61,7 @@
  
 }
 @media screen and (max-width:768px) {
-  .bodyContainer {
+  .background {
 
     background-image: none;
     background: rgb(247,185,208);

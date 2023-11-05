@@ -25,11 +25,13 @@ export default function RootLayout({ children }) {
     <html lang='fr'>
       <body className={styles.bodyContainer}>
 
-
         <UserContextProvider>
+          <div className={styles.background}>
 
-          <Header />
-          <section className={styles.sectionContainer}>{children}</section>
+
+            <Header />
+            <section className={styles.sectionContainer}>{children}</section>
+          </div>
         </UserContextProvider>
       </body>
     </html>
