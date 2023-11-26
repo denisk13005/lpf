@@ -8,6 +8,7 @@ import Image from 'next/image';
 
 const UserProfile = () => {
   const { user } = useUserContext();
+  console.log(user);
   const [changeDescription, setChangeDescription] = useState(false)
   const [imageSrc, setImageSrc] = useState('/chien.jpg')
   const [description, setDescription] = useState('')
@@ -26,6 +27,7 @@ const UserProfile = () => {
     console.log(e.key);
     if (e.key === 'Enter') {
       setChangeDescription(!changeDescription)
+
       updatePictureInDb()
 
     }
@@ -40,10 +42,19 @@ const UserProfile = () => {
 
   const updatePictureInDb = async (updatedPicture) => {
     console.log(user, updatedPicture);
+    let pictureToLoad
+    if (!updatedPicture) {
+      pictureToLoad = user.picture
+    } else {
+      pictureToLoad = updatedPicture
+    }
+
     const formDataUserToUpdate = new FormData()
     formDataUserToUpdate.append('id', user.id)
-    formDataUserToUpdate.append('picture', updatedPicture)
+    formDataUserToUpdate.append('picture', pictureToLoad)
     formDataUserToUpdate.append('presentation', description)
+    console.log(pictureToLoad, 'updated picture');
+
     const response = await fetch('/api/user/updateUserInfos', {
       method: 'PUT',
       body: formDataUserToUpdate
@@ -68,7 +79,23 @@ const UserProfile = () => {
     if (user.picture) {
       setImageSrc(`data:image/png;base64,${user.picture}`)
     }
+    if (user.description) {
+      setDescription(user.presentation)
+    }
+
   }, [user])
+
+  useEffect(() => {
+
+    if (user.picture) {
+
+    }
+
+    if (user.presentation) {
+      setDescription(user.presentation)
+    }
+    console.log(user);
+  }, [])
 
 
   return (
@@ -84,7 +111,7 @@ const UserProfile = () => {
       </Suspense>
 
       <textarea ref={area} cols="30" rows="10" onChange={e => setDescription(e.target.value)} className={`${changeDescription ? '' : styles.hidden}`} onKeyUp={(e) => checkKeyPress(e)}></textarea>
-      <div className={`${!changeDescription ? '' : styles.hidden}`}>{user.presentation}</div>
+      <div className={`${!changeDescription ? '' : styles.hidden}`}>{description}</div>
       <div className={styles.btnsContainer}>
 
 

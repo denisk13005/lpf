@@ -54,7 +54,7 @@ function UsersEventsPage() {
 
         <h1 className={styles.title}>Nos Evénements</h1>
         {
-          (user && user.role === 'ADMIN') &&
+          (!loading && user && user.role === 'ADMIN') &&
           <button className={styles.btn} onClick={() => router.push('/events/addEvent')}>Ajouter un Evénement</button>
 
         }
