@@ -72,14 +72,19 @@ function UsersEventsPage() {
 
             {/* <Loading /> */}
             <Stack spacing={5} >
-              {/* For variant="text", adjust the height via font-size */}
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
-              {/* For other variants, adjust the size with `width` and `height` */}
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
-              <Skeleton variant="rectangular" width={'100%'} height={300} />
+              {user && user.role === 'ADMIN' &&
+                <div style={{ width: '100%', height: '40px', margin: 'auto', display: 'flex', justifyContent: 'center' }}>
+
+                  <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'80%'} height={40} />
+                </div>
+              }
+
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
+              <Skeleton id={styles.skel} animation="wave" variant="rectangular" width={'100%'} height={300} />
             </Stack>
           </div>
       }

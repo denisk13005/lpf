@@ -1,7 +1,7 @@
 import React from 'react';
 
-const aPropos = () => {
+const About = () => {
   return <div>A-Propos</div>;
 };
 
-export default aPropos;
+export default About;
