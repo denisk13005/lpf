@@ -44,7 +44,13 @@ const ProductsGallery = () => {
   }, [product])
 
   const getAllProduct = async () => {
-    const res = await fetch('/api/products/getAllProducts')
+    const res = await fetch('/api/products/getAllProducts', {
+      method: 'GET',
+      headers: {
+        'Cache-Control': 'no-store'
+
+      }
+    })
     const products = await res.json()
     setProducts(products)
 
