@@ -52,6 +52,7 @@ const ProductsGallery = () => {
       }
     })
     const products = await res.json()
+    console.log(products, 'products');
     setProducts(products)
 
   }
