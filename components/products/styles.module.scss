@@ -26,8 +26,11 @@
   padding: 20px;
   border-radius: 10px;
   @media screen and (min-width : 700px) {
-    background-color: black;
-    color : white
+    color: white;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px white;
+    background-color: rgba($color: rgb(63, 0, 63), $alpha:.3);
   }
   .inputContainer{
     display: flex;

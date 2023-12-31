@@ -7,17 +7,17 @@ import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyCd38UMTKwRhd-ACTSirdz0dNqc_LFgKv8",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
 
-  authDomain: "la-petite-friperie-baeb4.firebaseapp.com",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
 
-  projectId: "la-petite-friperie-baeb4",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
 
-  storageBucket: "la-petite-friperie-baeb4.appspot.com",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
 
-  messagingSenderId: "161843937685",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 
-  appId: "1:161843937685:web:01623a73f6895deac7369c"
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 
 };
 const app = initializeApp(firebaseConfig);

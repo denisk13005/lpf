@@ -1,27 +1,33 @@
 'use client'
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { getImageUrl } from "@/lib/getImageUrl";
 import { useUserContext } from '@/context/UserContext';
 
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { firebase } from '@/firebase.js';
+
+
 import styles from './styles.module.scss'
+import SearchBar from '../searchBar/SearchBar';
 
 
 
+
+const storage = getStorage(firebase);
 
 const ProductsGallery = () => {
+
   const { user } = useUserContext();
   const [file, setFile] = useState('')
-  const [url, setUrl] = useState('')
   const [imageUrl, setImageUrl] = useState('/chien.jpg')
   const [product, setProduct] = useState({
     title: "",
     description: "",
     price: 0,
-    size: "",
+    size: "xs",
     picture: "",
-    category: ""
+    category: "haut"
   })
   const [products, setProducts] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
@@ -31,6 +37,11 @@ const ProductsGallery = () => {
     getAllProduct()
 
   }, [])
+
+
+  useEffect(() => {
+    console.log(product);
+  }, [product])
 
   const getAllProduct = async () => {
     const res = await fetch('/api/products/getAllProducts')
@@ -43,66 +54,105 @@ const ProductsGallery = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0]
     setFile(file);
-
     setImageUrl(getImageUrl(e).imageURL)
+    setProduct({ ...product, picture: file })
   }
 
   const storeImgInFirebaseAndGetUrl = async (file) => {
-    const storage = getStorage();
+    console.log(file, 'file ');
 
-    const metadata = {
-      contentType: 'image/jpeg',
-    };
+    return new Promise((resolve, reject) => {
 
-    //  Upload file and metadata to the object 'images/mountains.jpg'
-    const storageRef = ref(storage, 'images/' + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused');
-            break;
-          case 'running':
-            console.log('Upload is running');
-            break;
+
+
+
+      const metadata = {
+        contentType: 'image/jpeg',
+      };
+
+      //  Upload file and metadata to the object 'images/mountains.jpg'
+      const storageRef = ref(storage, 'images/' + file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            resolve(downloadURL)
+          });
         }
-      },
-      (error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            break;
-          case 'storage/canceled':
-            // User canceled the upload
-            break;
+      );
+    })
 
-          // ...
 
-          case 'storage/unknown':
-            // Unknown error occurred, inspect error.serverResponse
-            break;
-        }
-      },
-      () => {
-        // Upload completed successfully, now we can get the download URL
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('File available at', downloadURL);
-          setUrl(downloadURL)
-        });
-      }
-    );
+  }
+
+
+  const validateArticle = async () => {
+    try {
+      const imageUrl = await storeImgInFirebaseAndGetUrl(product.picture)
+
+      console.log(imageUrl);
+      const productWithImageUrl = { ...product, picture: imageUrl }
+      postProduct(productWithImageUrl)
+
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
+
+  const postProduct = async (product) => {
+    const query = await fetch('/api/products/add', {
+      method: 'POST',
+      body: JSON.stringify(product)
+    })
+    const response = await query.json()
+    console.log(response, 'response');
+    if (response.status === 201) {
+      setModalVisible(false)
+      getAllProduct()
+    }
   }
 
 
 
   return (
     <div className={styles.productGalleryContainer}>
+      <SearchBar tab={products} fieldsWhereSearch={['description', 'category', 'title']} />
+
       {
         user && user.role === 'ADMIN' &&
         <button className={styles.btn} onClick={() => setModalVisible(!modalVisible)}>Ajouter un produit</button>
@@ -113,17 +163,17 @@ const ProductsGallery = () => {
           <div className={styles.inputContainer}>
 
             <label htmlFor="title">titre</label>
-            <input type="text" name="title" id="title" />
+            <input type="text" name="title" id="title" onChange={(e) => setProduct({ ...product, title: e.target.value })} />
           </div>
           <div className={styles.inputContainer}>
 
             <label htmlFor="description">description</label>
-            <input type="text" name="description" id="description" />
+            <input type="text" name="description" id="description" onChange={(e) => setProduct({ ...product, description: e.target.value })} />
           </div>
           <div className={styles.inputContainer}>
 
             <label htmlFor="category">category</label>
-            <select name="category" id="category">
+            <select name="category" id="category" onChange={(e) => setProduct({ ...product, category: e.target.value })}>
               <option value="haut">haut</option>
               <option value="bas">bas</option>
               <option value="chaussures">chaussures</option>
@@ -143,14 +193,26 @@ const ProductsGallery = () => {
             </div>
           </div>
           <div className={styles.inputContainer}>
-            <label htmlFor="prix">prix</label>
-            <input type="text" name="prix" id="prix" />
+
+            <label htmlFor="size">taille</label>
+            <select name="size" id="size" onChange={(e) => setProduct({ ...product, size: e.target.value })}>
+              <option value="xs">xs</option>
+              <option value="s">s</option>
+              <option value="m">m</option>
+              <option value="l">l</option>
+              <option value="xl">xl</option>
+              <option value="xxl">xxl</option>
+              <option value="xxxl">xxxl</option>
+            </select>
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="price">prix</label>
+            <input type="text" name="price" id="price" onChange={(e) => setProduct({ ...product, price: parseInt(e.target.value) })} />
           </div>
 
-          <button>Valider l'article</button>
+          <button onClick={validateArticle}>Valider l'article</button>
         </div>
       </section>
-      {/* <input type="file" />
       {
         products && products.map(product => (
           <div key={product.id}>
@@ -159,7 +221,7 @@ const ProductsGallery = () => {
             <p>{product.description}</p>
           </div>
         ))
-      } */}
+      }
     </div>
   );
 };
