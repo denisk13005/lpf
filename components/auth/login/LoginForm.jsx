@@ -8,6 +8,18 @@ import { useUserContext } from '@/context/UserContext';
 
 import styles from './styles.module.scss';
 
+import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import { auth } from '@/firebase';
+
+import { FcGoogle } from "react-icons/fc";
+
+
+
+
+
+
+const provider = new GoogleAuthProvider();
+
 // schéma de validation des champs fait grâce a yup
 
 const LoginForm = () => {
@@ -65,6 +77,11 @@ const LoginForm = () => {
 
   };
 
+  const signIn = async () => {
+    signInWithRedirect(auth, provider).then(data => console.log(data))
+
+  }
+
   return (
     <div className={styles.formContainer}>
       <h2>Connectez vous ...</h2>
@@ -110,7 +127,7 @@ const LoginForm = () => {
           <div>
             <button type='submit'>Se Connecter</button>
           </div>
-          {/* <div className="text-center ">Ou se connecter avec :</div>
+          <div className="text-center ">Ou se connecter avec :</div>
           <div className="flex justify-center">
             <span
               onClick={() => signIn("google")}
@@ -118,14 +135,8 @@ const LoginForm = () => {
             >
               <FcGoogle className="text-3xl" />
             </span>
-            <span className="mx-6">ou</span>
-            <span
-              onClick={() => signIn("instagram")}
-              className="flex justify-center items-center w-[40px] h-[40px]  rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-50 cursor-pointer"
-            >
-              <GrInstagram className="text-3xl text-white " />
-            </span>
-          </div> */}
+
+          </div>
 
           <div className={styles.createAccountContainer}>
             <span htmlFor='password'>Pas de compte ?</span>
