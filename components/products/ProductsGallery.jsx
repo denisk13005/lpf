@@ -48,7 +48,7 @@ const ProductsGallery = () => {
   const getAllProduct = async () => {
     const res = await fetch('/api/products/getAllProducts', {
       cache: 'no-store',
-      // next: { revalidate: 1 }
+      next: { revalidate: 1 }
     })
     const products = await res.json()
     console.log(products, 'products');
