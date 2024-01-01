@@ -10,6 +10,8 @@ import { firebase } from '@/firebase.js';
 
 import styles from './styles.module.scss'
 import SearchBar from '../searchBar/SearchBar';
+import RecipeReviewCard from '../card/Card';
+
 
 
 
@@ -222,11 +224,13 @@ const ProductsGallery = () => {
       </section>
       {
         products && products.map(product => (
-          <div key={product.id}>
-            <h1>{product.title}</h1>
-            <Image src={product.picture} width={50} height={50} alt={product.title} />
-            <p>{product.description}</p>
-          </div>
+
+          <RecipeReviewCard props={product} key={product.id} />
+          // <div key={product.id}>
+          //   <h1>{product.title}</h1>
+          //   <Image src={product.picture} width={50} height={50} alt={product.title} />
+          //   <p>{product.description}</p>
+          // </div>
         ))
       }
     </div>
