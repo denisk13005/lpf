@@ -131,7 +131,7 @@ const ProductsGallery = () => {
 
       console.log(imageUrl);
       const productWithImageUrl = { ...product, picture: imageUrl }
-      postProduct(productWithImageUrl)
+      // postProduct(productWithImageUrl)
 
     } catch (error) {
       console.log(error);
@@ -140,10 +140,18 @@ const ProductsGallery = () => {
 
   }
 
-  const postProduct = async (product) => {
+  const postProduct = async () => {
+    const formDataEventToSend = new FormData()
+    formDataEventToSend.append('title', product.title)
+    formDataEventToSend.append('description', product.description)
+    formDataEventToSend.append('size', product.size)
+    formDataEventToSend.append('price', product.price)
+    formDataEventToSend.append('category', product.category)
+    formDataEventToSend.append('picture', file)
+    console.log(formDataEventToSend, '--');
     const query = await fetch('/api/products/add', {
       method: 'POST',
-      body: JSON.stringify(product)
+      body: formDataEventToSend
     })
     const response = await query.json()
     console.log(response, 'response');
@@ -216,7 +224,7 @@ const ProductsGallery = () => {
             <input type="text" name="price" id="price" onChange={(e) => setProduct({ ...product, price: parseInt(e.target.value) })} />
           </div>
 
-          <button onClick={validateArticle}>Valider l'article</button>
+          <button onClick={postProduct}>Valider l'article</button>
         </div>
       </section>
       {

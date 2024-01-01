@@ -5,20 +5,20 @@ const nextConfig = {
 
 
   },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       headers: [
-  //         {
-  //           key: 'Cache-Control',
-  //           value: 'no-store'
-  //         },
+  async headers() {
+    return [
+      {
+        source: '/components/products',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store'
+          },
 
-  //       ],
-  //     },
-  //   ]
-  // },
+        ],
+      },
+    ]
+  },
 
 }
 

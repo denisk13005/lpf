@@ -33,7 +33,7 @@ export default function RecipeReviewCard({ props }) {
       <CardMedia
         component="img"
         height="194"
-        image={props.picture}
+        image={`data:image/png;base64,${props.picture}`}
         alt="Paella dish"
       />
       <CardContent>
