@@ -51,7 +51,8 @@ const ProductsGallery = () => {
       headers: {
         'Cache-Control': 'no-store'
 
-      }
+      },
+      // next: { revalidate: 1 }
     })
     const products = await res.json()
     console.log(products, 'products');
