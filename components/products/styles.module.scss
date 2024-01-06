@@ -1,8 +1,10 @@
 
 .productGalleryContainer{
   width: 100%;
-  height : calc(100vh );
-  position:relative
+  position:relative;
+  max-width: 1200px;
+  margin: auto;
+  
 }
 .overlay{
   width: 100%;
@@ -11,18 +13,18 @@
   z-index: 1000;
   display: none;
   .modalContainer{
+    overflow: auto !important;
+    position: relative;
     font-size: 18px;
   
     width: 80%;
     max-width: 400px;
-    height: 60%;
     box-shadow: 1px 1px 10px rgb(253, 34, 224);
 
   margin: auto;
-  margin-top: 80px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: left;
   padding: 20px;
   border-radius: 10px;
@@ -37,11 +39,15 @@
   .inputContainer{
     display: flex;
     flex-direction: column;
+    margin-top: 5px;
+ 
+    
     input,select {
       margin-top: 10px;
       height: 25px;
       border: none;
       box-shadow: 1px 1px 5px pink;
+ 
       &:focus{
         outline: 2px solid pink;
       }
@@ -61,7 +67,7 @@
       height: max-content;
       padding: 10px;
       border-radius: 5px;
-      font-size: 18px;
+      font-size: 14px;
       font-style: italic;
     }
     .inputFile{
@@ -76,14 +82,19 @@
     }
   }
   button{
-    height: 45px;
+    // position  : absolute ;
+    // bottom : 10px;
+    // left : 50%;
+    // transform: translate(-50%);
+    height: 40px;
     cursor: pointer;
     background-color: rgb(253, 34, 224);
     color: white;
     padding: 10px;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
+    margin-top : 20px
    }
 
 
@@ -93,10 +104,16 @@
 .visible{
   display: block;
 }
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
 .btn {
   position: absolute;
-  right: 10px;
-  margin-top: 20px;
+  right: 0px;
+  top: 40px;
   padding: 10px;
   border: none;
   color: white;

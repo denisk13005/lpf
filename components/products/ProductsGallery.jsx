@@ -45,6 +45,16 @@ const ProductsGallery = () => {
     console.log(product);
   }, [product])
 
+  useEffect(() => {
+    const body = document.getElementsByTagName('body')
+    if (modalVisible) {
+      body[0].style.overflow = 'hidden'
+    } else {
+      body[0].style.overflow = ''
+
+    }
+  }, [modalVisible])
+
   const getAllProduct = async () => {
     const res = await fetch('/api/products/getAllProducts', {
       cache: 'no-store',
@@ -219,7 +229,7 @@ const ProductsGallery = () => {
               <option value="xxxl">xxxl</option>
             </select>
           </div>
-          <div className={styles.inputContainer}>
+          <div className={styles.inputContainer} >
             <label htmlFor="price">prix</label>
             <input type="text" name="price" id="price" onChange={(e) => setProduct({ ...product, price: parseInt(e.target.value) })} />
           </div>
@@ -227,17 +237,21 @@ const ProductsGallery = () => {
           <button onClick={postProduct}>Valider l'article</button>
         </div>
       </section>
-      {
-        products && products.map(product => (
+      <div className={styles.cardContainer}>
 
-          <RecipeReviewCard props={product} key={product.id} />
-          // <div key={product.id}>
-          //   <h1>{product.title}</h1>
-          //   <Image src={product.picture} width={50} height={50} alt={product.title} />
-          //   <p>{product.description}</p>
-          // </div>
-        ))
-      }
+        {
+
+          products && products.map(product => (
+
+            <RecipeReviewCard props={product} key={product.id} />
+            // <div key={product.id}>
+            //   <h1>{product.title}</h1>
+            //   <Image src={product.picture} width={50} height={50} alt={product.title} />
+            //   <p>{product.description}</p>
+            // </div>
+          ))
+        }
+      </div>
     </div>
   );
 };

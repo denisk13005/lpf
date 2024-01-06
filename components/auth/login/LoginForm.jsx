@@ -78,8 +78,26 @@ const LoginForm = () => {
   };
 
   const signIn = async () => {
-    signInWithRedirect(auth, provider).then(data => console.log(data))
-
+    signInWithRedirect(auth, provider).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token, 'token');
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user, 'user ');
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
   }
 
   return (
@@ -127,13 +145,13 @@ const LoginForm = () => {
           <div>
             <button type='submit'>Se Connecter</button>
           </div>
-          <div className="text-center ">Ou se connecter avec :</div>
+          <div className={styles.seCo}>Ou se connecter avec </div>
           <div className="flex justify-center">
             <span
               onClick={() => signIn("google")}
-              className="flex justify-center items-center w-full h-[40px] bg-white rounded-md cursor-pointer"
+              className={styles.googleBtn}
             >
-              <FcGoogle className="text-3xl" />
+              <FcGoogle className={styles.iconGoogle} />
             </span>
 
           </div>

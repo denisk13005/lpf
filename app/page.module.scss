@@ -10,11 +10,12 @@
 .background {
   background-image: url('../public/home.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100vh;
+
   z-index: 10;
 }
 .sectionContainer{
-  height: 100vh ;
+  min-height: 100vh ;
   width : 100%;
 }
 .main{
