@@ -17,7 +17,8 @@
     position: relative;
     font-size: 18px;
   
-    width: 80%;
+    width: 90%;
+    height : 77vh;
     max-width: 400px;
     box-shadow: 1px 1px 10px rgb(253, 34, 224);
 
@@ -42,7 +43,7 @@
     margin-top: 5px;
  
     
-    input,select {
+    input,select,textarea {
       margin-top: 10px;
       height: 25px;
       border: none;
@@ -82,10 +83,10 @@
     }
   }
   button{
-    // position  : absolute ;
-    // bottom : 10px;
-    // left : 50%;
-    // transform: translate(-50%);
+    position  : absolute ;
+    bottom : 30px;
+    left : 50%;
+    transform: translate(-50%);
     height: 40px;
     cursor: pointer;
     background-color: rgb(253, 34, 224);

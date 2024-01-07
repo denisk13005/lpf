@@ -11,6 +11,7 @@ import { firebase } from '@/firebase.js';
 import styles from './styles.module.scss'
 import SearchBar from '../searchBar/SearchBar';
 import RecipeReviewCard from '../card/Card';
+import { SentimentVerySatisfiedOutlined } from '@mui/icons-material';
 
 
 
@@ -31,8 +32,24 @@ const ProductsGallery = () => {
     picture: "",
     category: "haut"
   })
-  const [products, setProducts] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
+  const [products, setProducts] = useState([])
+  const [productsToShow, setProductsToShow] = useState([])
+  const [refine, setRefine] = useState('')
+
+
+
+  useEffect(() => {
+    let filteredProducts = products.filter(function (element) {
+      return (
+        element.title.toLowerCase().includes(refine.toLowerCase()) ||
+        element.description.toLowerCase().includes(refine.toLowerCase())
+      )
+
+    });
+
+    setProductsToShow(filteredProducts);
+  }, [refine])
 
   useEffect(() => {
 
@@ -42,8 +59,9 @@ const ProductsGallery = () => {
 
 
   useEffect(() => {
-    console.log(product);
-  }, [product])
+
+    setProductsToShow(products)
+  }, [products])
 
   useEffect(() => {
     const body = document.getElementsByTagName('body')
@@ -171,11 +189,15 @@ const ProductsGallery = () => {
     }
   }
 
+  const filter = (payload) => {
+    setRefine(payload)
+  }
+
 
 
   return (
     <div className={styles.productGalleryContainer}>
-      <SearchBar tab={products} fieldsWhereSearch={['description', 'category', 'title']} />
+      <SearchBar filter={filter} tab={products} fieldsWhereSearch={['description', 'category', 'title']} />
 
       {
         user && user.role === 'ADMIN' &&
@@ -192,7 +214,7 @@ const ProductsGallery = () => {
           <div className={styles.inputContainer}>
 
             <label htmlFor="description">description</label>
-            <input type="text" name="description" id="description" onChange={(e) => setProduct({ ...product, description: e.target.value })} />
+            <textarea type="text" name="description" id="description" onChange={(e) => setProduct({ ...product, description: e.target.value })} />
           </div>
           <div className={styles.inputContainer}>
 
@@ -241,7 +263,7 @@ const ProductsGallery = () => {
 
         {
 
-          products && products.map(product => (
+          productsToShow && productsToShow.map(product => (
 
             <RecipeReviewCard props={product} key={product.id} />
             // <div key={product.id}>

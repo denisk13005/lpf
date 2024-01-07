@@ -68,7 +68,12 @@ const NavigationLinks = ({ showHambMenu, closeHamb }) => {
           </span>
         );
       })}
-      {/* <span style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <LiaSignOutAltSolid /> </span> */}
+      {
+
+      }
+      <span
+        className={styles.navLinkContainer}
+        style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <LiaSignOutAltSolid /> </span>
     </nav>
   );
 };

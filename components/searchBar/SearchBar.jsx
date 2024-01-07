@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss'
 import { IoIosSearch } from "react-icons/io";
 
-const SearchBar = (props) => {
+const SearchBar = ({ filter }, props) => {
   const { tab, fieldsWhereSearch } = props
+  const onValueChange = (e) => {
+    const value = (e.target.value)
+
+    filter(value)
+  }
   return (
     <div className={styles.searchBarContainer}>
       <select name="category" id="category" className={styles.select} placeholder='category'>
@@ -16,7 +21,7 @@ const SearchBar = (props) => {
       <div className={styles.searchPart}>
 
         <IoIosSearch className={styles.loupe} />
-        <input className={styles.input} type="text" name="search" id="search" />
+        <input className={styles.input} type="text" name="search" id="search" onChange={onValueChange} />
       </div>
 
     </div>
