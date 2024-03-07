@@ -1,11 +1,13 @@
-import './globals.scss';
-import UserContextProvider from 'context/UserContextProvider';
-import styles from './page.module.scss';
 import Header from '@/components/header/Header';
+import UserContextProvider from 'context/UserContextProvider';
+import Head from 'next/head';
+import './globals.scss';
+import styles from './page.module.scss';
 
 
 
 export const metadata = {
+  manifest: '/manifest.json',
   title: 'la petite friperie',
   description: 'friperie solidaire',
 };
@@ -23,6 +25,11 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='fr'>
+      <Head>
+        <link rel='manifest' href='/public/manifest.json' />
+        <link rel="icon" type="image/jpg" sizes="32x32" href="/public/chien.jpg" />
+
+      </Head>
       <body className={styles.bodyContainer}>
 
         <UserContextProvider>
