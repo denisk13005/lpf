@@ -25,11 +25,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='fr'>
-      <Head>
-        <link rel='manifest' href='/public/manifest.json' />
-        <link rel="icon" type="image/jpg" sizes="32x32" href="/public/chien.jpg" />
 
-      </Head>
       <body className={styles.bodyContainer}>
 
         <UserContextProvider>
