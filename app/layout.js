@@ -9,6 +9,7 @@ export const metadata = {
   manifest: '/manifest.json',
   title: 'Frip Boutique Ambulante',
   description: 'friperie solidaire',
+  name: "google-adsense-account", content: "ca-pub-2120864365107584"
 };
 
 /**
