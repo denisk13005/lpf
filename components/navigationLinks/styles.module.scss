@@ -31,6 +31,11 @@
   display: flex;
   align-items: center;
   padding: 0 0.375rem;
+  a{
+    @media screen and (min-width : 700px) {
+      margin: auto;
+    }
+  }
 }
 
 .active {
