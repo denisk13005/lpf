@@ -1,16 +1,16 @@
-import React from 'react';
-import styles from './page.module.scss';
-import { GiHanger } from 'react-icons/gi'
 import CheckUser from '@/components/user/CheckUser';
+import React from 'react';
+import { GiHanger } from 'react-icons/gi';
+import styles from './page.module.scss';
 
 const Home = () => {
   return <main className={styles.main}>
     <div className={styles.titleContainer}>
       <CheckUser />
 
-      <div >La Petite</div>
+      <div >Frip Boutique</div>
       <GiHanger className={styles.hanger} />
-      <div > Friperie</div>
+      <div > Ambulante</div>
     </div>
   </main>;
 };
