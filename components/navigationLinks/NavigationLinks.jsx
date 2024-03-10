@@ -1,21 +1,20 @@
-import React from 'react';
-import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
 
-import { AiOutlineCloseCircle } from 'react-icons/ai'
-import styles from './styles.module.scss';
+import { auth } from '@/firebase';
 import {
   signOut
 } from "firebase/auth";
-import { auth } from '@/firebase';
-import { LiaSignOutAltSolid } from "react-icons/lia";
-import { GrContact } from "react-icons/gr";
-import { FaQuestion } from "react-icons/fa6";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsCalendar4Event } from "react-icons/bs";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { FaQuestion } from "react-icons/fa6";
+import { GrContact } from "react-icons/gr";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
+import { LiaSignOutAltSolid } from "react-icons/lia";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import styles from './styles.module.scss';
 
 const navLinks = [
   { name: 'Accueil', href: '/', icon: <IoHomeOutline /> },
@@ -64,7 +63,7 @@ const NavigationLinks = ({ showHambMenu, closeHamb }) => {
             }
             key={link.name}>
             <Link href={link.href} onClick={() => closeHamb(true)}>{link.name}</Link>
-            {link.icon}
+            <p className={styles.icons}>{link.icon}</p>
           </span>
         );
       })}
@@ -73,7 +72,7 @@ const NavigationLinks = ({ showHambMenu, closeHamb }) => {
       }
       <span
         className={styles.navLinkContainer}
-        style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <LiaSignOutAltSolid /> </span>
+        style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <p className={styles.icons}><LiaSignOutAltSolid /> </p> </span>
     </nav>
   );
 };

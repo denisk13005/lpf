@@ -1,31 +1,35 @@
 'use client'
-import React, { Suspense, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import styles from './styles.module.scss'
 import { useUserContext } from '@/context/UserContext';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import styles from './styles.module.scss';
 
 
 
-import EventTile from './EventTile'
-import axios from 'axios'
-import Loading from './Loading';
+import axios from 'axios';
+import EventTile from './EventTile';
 function UsersEventsPage() {
   const { user, addUser } = useUserContext();
   const [showEventModal, setShowEventModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [container, setContainer] = useState(styles.loading)
+  const [showEvents, setShowEvents] = useState(false)
 
   const router = useRouter()
   const [events, setevents] = useState([])
   const getEvents = async () => {
     const res = await axios.get('/api/events/getEvents')
     console.log(res);
-    const events = res.data
-    console.log(events, '-----');
+    const events = await res.data
+
+    if (res.status === 200) {
+      console.log("'titi")
+      setLoading(false)
+      setShowEvents(true)
+    }
     setevents(events)
-    events.length && setLoading(false)
   }
   useEffect(() => {
     setLoading(true)
@@ -62,7 +66,7 @@ function UsersEventsPage() {
 
       {
 
-        events.length ? (
+        showEvents ? (
 
           events.map((event, id) =>
 
