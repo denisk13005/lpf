@@ -1,6 +1,5 @@
 import Header from '@/components/header/Header';
 import UserContextProvider from 'context/UserContextProvider';
-import Head from 'next/head';
 import './globals.scss';
 import styles from './page.module.scss';
 
@@ -8,7 +7,7 @@ import styles from './page.module.scss';
 
 export const metadata = {
   manifest: '/manifest.json',
-  title: 'la petite friperie',
+  title: 'Frip Boutique Ambulante',
   description: 'friperie solidaire',
 };
 
