@@ -1,7 +1,9 @@
-import React from 'react';
+import Camera from '@/components/Camera';
 
 const About = () => {
-  return <div>A-Propos</div>;
+  return <div>
+    <Camera />
+  </div>;
 };
 
 export default About;
