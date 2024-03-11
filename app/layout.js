@@ -1,5 +1,6 @@
 import Header from '@/components/header/Header';
 import UserContextProvider from 'context/UserContextProvider';
+import Head from 'next/head';
 import './globals.scss';
 import styles from './page.module.scss';
 
@@ -25,6 +26,9 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang='fr'>
+      <Head>
+        <meta name="google-adsense-account" content="ca-pub-2120864365107584" />
+      </Head>
 
       <body className={styles.bodyContainer}>
 
