@@ -7,7 +7,7 @@ const withPWA = require('next-pwa')({
 })
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'unsplash.com', 'localhost', 'firebasestorage.googleapis.com']
+    domains: ['images.unsplash.com', 'unsplash.com', 'localhost', 'firebasestorage.googleapis.com', 'github.com']
 
 
   }
