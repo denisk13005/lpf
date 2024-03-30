@@ -11,6 +11,9 @@ const Home = () => {
       <div >Frip Boutique</div>
       <GiHanger className={styles.hanger} />
       <div > Ambulante</div>
+      <section>
+        La Friperie Boutique Ambulante c'est trop bien
+      </section>
     </div>
   </main>;
 };
