@@ -8,7 +8,9 @@ const contact = () => {
     width={740}
     height={520}
 
-  /></div>;
+  />
+    <p>LULU le FER 'FUCIE'</p>
+  </div>;
 };
 
 export default contact;
