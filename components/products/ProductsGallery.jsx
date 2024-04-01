@@ -1,17 +1,16 @@
 'use client'
+import { useUserContext } from '@/context/UserContext';
+import { getImageUrl } from "@/lib/getImageUrl";
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { getImageUrl } from "@/lib/getImageUrl";
-import { useUserContext } from '@/context/UserContext';
 
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { firebase } from '@/firebase.js';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 
 
-import styles from './styles.module.scss'
-import SearchBar from '../searchBar/SearchBar';
 import RecipeReviewCard from '../card/Card';
-import { SentimentVerySatisfiedOutlined } from '@mui/icons-material';
+import SearchBar from '../searchBar/SearchBar';
+import styles from './styles.module.scss';
 
 
 
@@ -79,7 +78,6 @@ const ProductsGallery = () => {
       next: { revalidate: 0 }
     })
     const products = await res.json()
-    console.log(products, 'products');
     setProducts(products)
 
   }

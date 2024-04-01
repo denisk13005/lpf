@@ -12,7 +12,6 @@ import { FaQuestion } from "react-icons/fa6";
 import { GrContact } from "react-icons/gr";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
-import { LiaSignOutAltSolid } from "react-icons/lia";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import styles from './styles.module.scss';
 
@@ -70,9 +69,9 @@ const NavigationLinks = ({ showHambMenu, closeHamb }) => {
       {
 
       }
-      <span
+      {/* <span
         className={styles.navLinkContainer}
-        style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <p className={styles.icons}><LiaSignOutAltSolid /> </p> </span>
+        style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }} onClick={() => deco()}><Link href='/#' onClick={() => closeHamb(true)}>Signout</Link> <p className={styles.icons}><LiaSignOutAltSolid /> </p> </span> */}
     </nav>
   );
 };
