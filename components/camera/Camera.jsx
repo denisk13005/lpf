@@ -1,38 +1,71 @@
 'use client'
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Camera = () => {
+  const [devices, setDevices] = useState([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState("");
   const videoRef = useRef(null);
 
-  const handleStartCamera = () => {
+  useEffect(() => {
+    // Obtenir tous les dispositifs de capture vidéo
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      setDevices(videoDevices);
+      // Sélectionner par défaut la première caméra trouvée
+      if (videoDevices.length > 0) {
+        setSelectedDeviceId(videoDevices[0].deviceId);
+      }
+    });
+  }, []);
+
+  const startCamera = (deviceId) => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: { width: 128, height: 72 } }) // Vous pouvez spécifier des contraintes ici
+      navigator.mediaDevices.getUserMedia({
+        video: { deviceId: { exact: deviceId } }
+      })
         .then((stream) => {
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
           }
         })
         .catch((err) => {
-          console.error("Erreur lors de l'accès à la caméra :", err);
+          console.error("Erreur lors de l'accès à la caméra:", err);
         });
     }
   };
 
-  // Styles pour l'encart vidéo
-  const videoStyles = {
-    width: '100%', // Prend la largeur complète de l'encart
-    maxHeight: '400px', // Hauteur maximale pour l'encart vidéo
-    objectFit: 'cover', // Ajuste le flux vidéo pour couvrir l'espace disponible, cela peut découper les bords du flux
-    border: '3px solid #333', // Bordure pour l'encart
-    borderRadius: '58px', // Bords arrondis pour l'encart
+  const handleStartCamera = () => {
+    startCamera(selectedDeviceId);
+  };
 
+  // Gérer le changement de caméra sélectionnée
+  const handleChangeCamera = (event) => {
+    setSelectedDeviceId(event.target.value);
+    startCamera(event.target.value);
+  };
+
+  // Capture et affichage de la photo
+  const [photo, setPhoto] = useState("");
+  const handleTakePhoto = () => {
+    const video = videoRef.current;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    setPhoto(canvas.toDataURL('image/png'));
   };
 
   return (
-    <div >
-      test 1234567
-      <video playsInline autoPlay style={videoStyles} ref={videoRef} />
+    <div>
+      {devices.map((device, index) => (
+        <button key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })}>
+          Caméra {index + 1}
+        </button>
+      ))}
+      <video playsInline autoPlay ref={videoRef} />
       <button onClick={handleStartCamera}>Activer la caméra</button>
+      <button onClick={handleTakePhoto}>Prendre une photo</button>
+      {photo && <img src={photo} alt="Capture" />}
     </div>
   );
 };
