@@ -1,17 +1,16 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { useUserContext } from '@/context/UserContext';
-import { useRouter } from 'next/navigation'
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import { getImageUrl } from '@/lib/getImageUrl';
 
 
-import defaultImage from '@/public/img/photo2.jpg'
+import defaultImage from '@/public/img/photo2.jpg';
 
 
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 function AddEvent() {
   // state local
   const [event, setEvent] = useState({
@@ -97,11 +96,15 @@ function AddEvent() {
               <label htmlFor="description">Description de l'événement</label>
               <textarea id='description' onChange={(e) => setEvent({ ...event, description: e.target.value })} />
             </div>
+            <div style={{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center' }}>
+
+              <button className={styles.btnValid} onClick={() => { postEvent({ date, picture, description }) }}>Ajouter l'événement</button>
+              <button className={styles.btnValid} onClick={() => router.push('/events')}>Fermer</button>
+            </div>
           </div>
 
-          <button className={styles.btnValid} onClick={() => { postEvent({ date, picture, description }) }}>Ajouter l'événement</button>
         </div>
-      </div>
+      </div >
 
     )
 

@@ -2,7 +2,7 @@
   width: 100%;
   height: 93vh;
   border-radius: 10px;
-  background: rgba($color: rgb(230, 230, 230), $alpha: 1);
+  background: radial-gradient(rgba($color: rgb(230, 230, 230), $alpha: 1),rgba($color: rgb(138, 3, 165), $alpha: 1)) ;
   position: fixed;
   top: 0;
   left: 0;
@@ -22,7 +22,7 @@
       height: 100%;
       border-radius: 10px;
       padding-bottom: 50px;
-      box-shadow: 2px 2px 4px lightgrey;
+      box-shadow: 2px 2px 4px rgb(211, 211, 211);
       @media screen and (min-width : 700px) {
         width: 50%;
       }
@@ -34,11 +34,11 @@
           font-family: Georgia, 'Times New Roman', Times, serif;
       }
       .btnValid {
-          position :absolute;
-          bottom:0;
-          left: 50%;
+        //   position :absolute;
+        //   bottom:0;
+        //   left: 50%;
           height : 40px;
-          transform: translate(-50%);
+        //   transform: translate(-50%);
           padding: 10px;
           padding: 10px;
           margin:auto;
@@ -58,7 +58,7 @@
   
           @media screen and (max-width: 700px) {
               margin: auto;
-              margin-top: 40px;
+              margin-top: 10px;
               width: 70%;
           }
   

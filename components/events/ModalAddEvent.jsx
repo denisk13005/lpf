@@ -1,50 +1,48 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import defaultImage from '@/public/img/photo2.jpg'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
 
 import styles from './styles.module.scss'
-function ModalAddEvent({ showEventModal, close , addEvent}) {
+function ModalAddEvent({ showEventModal, close, addEvent }) {
     // state local
     const [date, setDate] = useState('')
     const [imageSrc, setImageSrc] = useState('../../public/home.jpg')
     const [description, setDescription] = useState('')
     const [today, setToday] = useState('')
-    console.log(showEventModal)
-    useEffect(() => {
-        console.log(showEventModal)
-    }, [showEventModal])
+
+
     useEffect(() => {
         setImageSrc(defaultImage)
 
 
         console.log(today);
-        setToday(new Date().getFullYear()+'-'+( new Date().getMonth() + 1)+'-'+ new Date().getDate())
+        setToday(new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate())
         console.log(today);
     }, [])
 
-    
-    const loadPicture = (e) => {
-        
 
-        let value =e.target.files[0]
+    const loadPicture = (e) => {
+
+
+        let value = e.target.files[0]
         console.log(value);
         if (value) {
-            if(value.type !==  'image/jpeg'  && value.type !=='image/jpg' && value.type !== 'image/svg' && value.type !==  'image/png' ){
+            if (value.type !== 'image/jpeg' && value.type !== 'image/jpg' && value.type !== 'image/svg' && value.type !== 'image/png') {
                 alert('image non supportée, veuillez choisir une image avec une extension .jpg, .png ou .svg')
                 return
             }
-            if(value.size > 512000){
+            if (value.size > 512000) {
                 alert('image trop lourde max:500 ko')
                 return
             }
             else {
 
-                
+
                 var imageURL = URL.createObjectURL(value); // Créez une URL pour le fichier
-                
-                
+
+
                 // Mettez à jour l'attribut src de l'élément <img> avec l'URL de l'image
                 setImageSrc(imageURL);
             }
@@ -69,7 +67,7 @@ function ModalAddEvent({ showEventModal, close , addEvent}) {
                     <div className={styles.eventInfosContainer}>
                         <div className={`${styles.partEventContainer} ${styles.date}`}>
                             <label htmlFor="date">Date de l'événement :</label>
-                            <input type="date" id='date' min= {today} onChange={(e) => setDate(new Date(e.target.value))} />
+                            <input type="date" id='date' min={today} onChange={(e) => setDate(new Date(e.target.value))} />
                         </div>
                         <div className={`${styles.partEventContainer} ${styles.picture} `}>
                             <label htmlFor="picture">Ajouter une photo pour l'événement</label>
@@ -85,8 +83,7 @@ function ModalAddEvent({ showEventModal, close , addEvent}) {
                             <textarea id='description' onChange={(e) => setDescription(e.target.value)} />
                         </div>
                     </div>
-
-                    <button className={styles.btnValid} onClick={() => { handleSubmit(); close(true); addEvent({date,picture,description}) }}>Ajouter l'événement</button>
+                    <button className={styles.btnValid} onClick={() => { handleSubmit(); close(true); addEvent({ date, picture, description }) }}>Ajouter l'événements</button>
                 </div>
             </div>
 
