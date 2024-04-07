@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 const Camera = () => {
@@ -49,7 +50,7 @@ const Camera = () => {
   const handleTakePhoto = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
+    canvas.width = 50;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
@@ -65,7 +66,7 @@ const Camera = () => {
       <video playsInline autoPlay ref={videoRef} />
       <button onClick={handleStartCamera}>Activer la caméra</button>
       <button onClick={handleTakePhoto}>Prendre une photo</button>
-      {photo && <img src={photo} alt="Capture" />}
+      {photo && <Image src={photo} alt="Capture" fill />}
     </div>
   );
 };

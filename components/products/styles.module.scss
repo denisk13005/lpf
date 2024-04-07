@@ -14,6 +14,9 @@
   left: 0;
   background-color : rgba(lightgray, 0.6);
   display: none;
+  align-items: center;
+  justify-content: center;
+  
   
   .modalContainer{
     overflow: auto !important;
@@ -21,7 +24,6 @@
     font-size: 18px;
   
     width: 90%;
-    height : 100%;
     max-width: 400px;
     box-shadow: 1px 1px 10px rgb(253, 34, 224);
 
@@ -86,10 +88,10 @@
     }
   }
   button{
-    position  : absolute ;
+    // position  : absolute ;
     bottom : 50px;
     left : 50%;
-    transform: translate(-50%);
+    // transform: translate(-50%);
     height: 40px;
     cursor: pointer;
     background-color: rgb(253, 34, 224);
@@ -106,7 +108,7 @@
   
 }
 .visible{
-  display: block;
+  display: flex;
 }
 .cardContainer {
   display: flex;
