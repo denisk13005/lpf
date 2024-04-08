@@ -89,13 +89,13 @@
   }
 
   .date {
-      height: 5%;
+      height: 4dvh;
       flex-direction: row;
       justify-content: center;
   }
 
   .picture {
-      height: 40%;
+      height: 30dvh;
       margin : 10px auto;
       width : 50%;
       @media screen and (max-width:700px)  {
@@ -105,7 +105,7 @@
   }
 
   .description {
-      height: 20%;
+      height: 20dvh;
       width: 95%;
       margin-top: 7dvh;
 
