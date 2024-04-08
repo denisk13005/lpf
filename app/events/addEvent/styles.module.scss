@@ -73,8 +73,8 @@
       display: flex;
       height: 90%;
       flex-direction: column;
-      justify-content: flex-start;
-
+      justify-content: space-between;
+      align-items: center;
       label {
           text-align: center;
           padding: 10px;
@@ -107,7 +107,7 @@
   .description {
       height: 20%;
       width: 95%;
-      margin: 4dvh auto;
+      margin-top: 7dvh;
 
       textarea {
           height: 100%;

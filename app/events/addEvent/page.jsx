@@ -96,7 +96,7 @@ function AddEvent() {
               <label htmlFor="description">Description de l'événement</label>
               <textarea id='description' onChange={(e) => setEvent({ ...event, description: e.target.value })} />
             </div>
-            <div style={{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center' }}>
+            <div style={{ width: '100%', textAlign: 'center' }}>
 
               <button className={styles.btnValid} onClick={() => { postEvent({ date, picture, description }) }}>Ajouter l'événement</button>
               <button className={styles.btnValid} onClick={() => router.push('/events')}>Fermer</button>
