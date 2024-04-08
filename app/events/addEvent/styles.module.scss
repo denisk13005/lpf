@@ -95,12 +95,15 @@
 
   .picture {
       height: 40%;
-      margin : auto;
+      margin : 10px auto;
       width : 50%;
       @media screen and (max-width:700px)  {
         width: 95%;
       }
 
+  }
+  .descriptionTitle{
+    margin-top: -60px;
   }
 
   .description {

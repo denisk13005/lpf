@@ -1,10 +1,9 @@
-import Camera from "@/components/camera/Camera";
 
 
 const About = () => {
-  return <div style={{ height: '100dvh', backgroundColor: 'red' }}>
-    test
-    <Camera />
+  return <div style={{ height: '100dvh', backgroundColor: 'pink', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px', color: 'white' }}>
+    Coming Soon
+    {/* <Camera /> */}
   </div>;
 };
 

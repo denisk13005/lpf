@@ -93,7 +93,7 @@ function AddEvent() {
               </div>
             </div>
             <div className={`${styles.partEventContainer} ${styles.description}`}>
-              <label htmlFor="description">Description de l'événement</label>
+              <label className={styles.descriptionTitle} htmlFor="description">Description de l'événement</label>
               <textarea id='description' onChange={(e) => setEvent({ ...event, description: e.target.value })} />
             </div>
             <div style={{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center' }}>
