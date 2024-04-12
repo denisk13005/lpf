@@ -1,6 +1,9 @@
 'use client'
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import { LuSwitchCamera } from "react-icons/lu";
+import { SiPhotobucket } from "react-icons/si";
+
 
 const Camera = () => {
   const [devices, setDevices] = useState([]);
@@ -17,6 +20,7 @@ const Camera = () => {
         setSelectedDeviceId(videoDevices[0].deviceId);
       }
     });
+    handleStartCamera()
   }, []);
 
   const startCamera = (deviceId) => {
@@ -57,16 +61,14 @@ const Camera = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'red', height: '100%', width: '100%', position: 'relative' }}>
       {devices.map((device, index) => (
-        <button key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })}>
-          Caméra {index + 1}
-        </button>
+        <   LuSwitchCamera style={{ position: 'absolute', top: 0, right: 0, transform: 'translate(-50%)', fontSize: '4dvh' }} key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })} />
+
       ))}
-      <video playsInline autoPlay ref={videoRef} />
-      <button onClick={handleStartCamera}>Activer la caméra</button>
-      <button onClick={handleTakePhoto}>Prendre une photo</button>
-      {photo && <Image src={photo} alt="Capture" fill />}
+      <video playsInline autoPlay ref={videoRef} style={{ height: '100%', zIndex: 9 }} />
+      <SiPhotobucket style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translate(-50%)', fontSize: '8dvh', zIndex: 10, display: 'inline-block' }} onClick={handleTakePhoto} />
+      {photo && <Image style={{ position: 'absolute', bottom: 0 }} src={photo} alt="Capture" fill />}
     </div>
   );
 };

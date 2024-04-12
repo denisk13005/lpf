@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 // import { firebase } from '@/firebase.js';
 
 
+import Camera from '../camera/Camera';
 import RecipeReviewCard from '../card/Card';
 import SearchBar from '../searchBar/SearchBar';
 import styles from './styles.module.scss';
@@ -35,6 +36,7 @@ const ProductsGallery = () => {
   const [productsToShow, setProductsToShow] = useState([])
   const [refine, setRefine] = useState('')
   const [error, setError] = useState(false)
+  const [showCamera, setShowCamera] = useState(false)
 
 
 
@@ -214,6 +216,8 @@ const ProductsGallery = () => {
 
 
 
+
+
   return (
     <div className={styles.productGalleryContainer}>
       <SearchBar filter={filter} tab={products} fieldsWhereSearch={['description', 'category', 'title']} />
@@ -249,15 +253,23 @@ const ProductsGallery = () => {
           <div className={styles.inputContainer}>
 
             <div className={styles.inputImageContainer}>
-              <label htmlFor="photo" className={styles.labelFile}>choisir une image</label>
+              <label htmlFor="photo" className={styles.labelFile}>Choisir Une Image</label>
 
               <input type="file" name="photo" id="photo" className={styles.inputFile} onChange={handleFileUpload} />
               <div className={styles.imgContainer}>
+                <Image src={imageUrl} alt='product image' fill />
 
-                <Image src={imageUrl} alt={file.name} fill />
               </div>
+              <div className={styles.labelFile} onClick={() => setShowCamera(true)}>
+                Prendre Une Photo
+              </div>
+
+
             </div>
+            {showCamera && <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}><Camera /></div>}
+
           </div>
+
           <div className={styles.inputContainer}>
 
             <label htmlFor="size">taille</label>
