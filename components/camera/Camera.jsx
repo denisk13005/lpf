@@ -54,8 +54,8 @@ const Camera = () => {
   const handleTakePhoto = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
-    canvas.width = 50;
-    canvas.height = video.videoHeight;
+    canvas.width = 1980;
+    canvas.height = 1080;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
   };
