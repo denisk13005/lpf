@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { LuSwitchCamera } from "react-icons/lu";
 import { SiPhotobucket } from "react-icons/si";
 
+import styles from './styles.module.scss';
+
+
 
 const Camera = () => {
   const [devices, setDevices] = useState([]);
@@ -12,19 +15,26 @@ const Camera = () => {
 
   useEffect(() => {
     // Obtenir tous les dispositifs de capture vidéo
+    console.log(navigator.mediaDevices)
+
     navigator.mediaDevices.enumerateDevices().then((devices) => {
+      console.log(devices, '----')
       const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      console.log(videoDevices, 'video devices')
       setDevices(videoDevices);
       // Sélectionner par défaut la première caméra trouvée
       if (videoDevices.length > 0) {
         setSelectedDeviceId(videoDevices[0].deviceId);
       }
     });
-    handleStartCamera()
+
   }, []);
+  useEffect(() => {
+    handleStartCamera(selectedDeviceId)
+  }, [selectedDeviceId])
 
   const startCamera = (deviceId) => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({
         video: { deviceId: { exact: deviceId } }
       })
@@ -45,6 +55,7 @@ const Camera = () => {
 
   // Gérer le changement de caméra sélectionnée
   const handleChangeCamera = (event) => {
+    console.log(event.target)
     setSelectedDeviceId(event.target.value);
     startCamera(event.target.value);
   };
@@ -54,22 +65,48 @@ const Camera = () => {
   const handleTakePhoto = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
-    canvas.width = 1980;
+    canvas.width = 1920;
     canvas.height = 1080;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
   };
 
-  return (
-    <div style={{ backgroundColor: 'red', height: '100%', width: '100%', position: 'relative' }}>
-      {devices.map((device, index) => (
-        <   LuSwitchCamera style={{ position: 'absolute', top: 0, right: 0, transform: 'translate(-50%)', fontSize: '4dvh' }} key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })} />
+  const retakePicture = () => {
+    setPhoto("")
+    startCamera(selectedDeviceId)
+  }
 
-      ))}
-      <video playsInline autoPlay ref={videoRef} style={{ height: '100%', zIndex: 9 }} />
-      <SiPhotobucket style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translate(-50%)', fontSize: '8dvh', zIndex: 10, display: 'inline-block' }} onClick={handleTakePhoto} />
-      {photo && <Image style={{ position: 'absolute', bottom: 0 }} src={photo} alt="Capture" fill />}
-    </div>
+  return (
+    <div className={styles.cameraContainer} >
+      {/* {devices.map((device, index) => (
+        <div>
+
+          <   LuSwitchCamera key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })} />
+
+          <video playsInline autoPlay ref={videoRef} />
+          <SiPhotobucket onClick={handleTakePhoto} />
+        </div>
+      ))} */}
+      {photo ?
+        <div className={styles.photoContainer}>
+
+          <Image src={photo} alt="Capture" fill />
+          <div className={styles.btnContainer}>
+
+            <span className={styles.btn}>Valider</span><span className={styles.btn} onClick={retakePicture}>Reprendre la photo</span>
+          </div>
+        </div> :
+        devices.map((device, index) => (
+          <div key={index} className={styles.cameraPart}>
+
+            <   LuSwitchCamera key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })} />
+
+            <video playsInline autoPlay ref={videoRef} />
+            <SiPhotobucket onClick={handleTakePhoto} />
+          </div>
+        ))
+      }
+    </div >
   );
 };
 
