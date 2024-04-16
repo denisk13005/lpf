@@ -63,6 +63,7 @@ const Camera = () => {
   // Capture et affichage de la photo
   const [photo, setPhoto] = useState("");
   const handleTakePhoto = () => {
+    console.log('ici')
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
     canvas.width = 1920;
@@ -73,8 +74,11 @@ const Camera = () => {
 
   const retakePicture = () => {
     setPhoto("")
-    startCamera(selectedDeviceId)
+    startCamera(devices[1])
   }
+  useEffect(() => {
+    console.log(photo)
+  }, [photo])
 
   return (
     <div className={styles.cameraContainer} >
@@ -101,7 +105,7 @@ const Camera = () => {
 
         <div className={styles.cameraPart}>
 
-          <   LuSwitchCamera onClick={() => handleChangeCamera({ target: { value: devices[2] } })} />
+          <   LuSwitchCamera onClick={() => handleChangeCamera({ target: { value: devices[1] } })} />
 
           <video playsInline autoPlay ref={videoRef} />
           <SiPhotobucket onClick={handleTakePhoto} />
