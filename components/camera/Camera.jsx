@@ -96,15 +96,17 @@ const Camera = () => {
             <span className={styles.btn}>Valider</span><span className={styles.btn} onClick={retakePicture}>Reprendre la photo</span>
           </div>
         </div> :
-        devices.map((device, index) => (
-          <div key={index} className={styles.cameraPart}>
 
-            <   LuSwitchCamera key={device.deviceId} onClick={() => handleChangeCamera({ target: { value: device.deviceId } })} />
 
-            <video playsInline autoPlay ref={videoRef} />
-            <SiPhotobucket onClick={handleTakePhoto} />
-          </div>
-        ))
+
+        <div className={styles.cameraPart}>
+
+          <   LuSwitchCamera onClick={() => handleChangeCamera({ target: { value: devices[2] } })} />
+
+          <video playsInline autoPlay ref={videoRef} />
+          <SiPhotobucket onClick={handleTakePhoto} />
+        </div>
+
       }
     </div >
   );
