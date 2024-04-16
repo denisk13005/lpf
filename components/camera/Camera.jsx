@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 
 
-const Camera = () => {
+const Camera = ({ getUrl }) => {
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
   const videoRef = useRef(null);
@@ -57,7 +57,7 @@ const Camera = () => {
   const handleChangeCamera = (event) => {
     console.log('devices')
     setSelectedDeviceId(devices[1]);
-    startCamera(event.target.value);
+    startCamera(devices[1]);
   };
 
   // Capture et affichage de la photo
@@ -70,15 +70,18 @@ const Camera = () => {
     canvas.height = 1080;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
+    photoUrl(photo)
   };
 
   const retakePicture = () => {
     setPhoto("")
     startCamera(devices[1])
   }
-  useEffect(() => {
-    console.log(photo)
-  }, [photo])
+  const validate = () => {
+    getUrl(photo)
+  }
+
+
 
   return (
     <div className={styles.cameraContainer} >
@@ -97,7 +100,8 @@ const Camera = () => {
           <Image src={photo} alt="Capture" fill />
           <div className={styles.btnContainer}>
 
-            <span className={styles.btn}>Valider</span><span className={styles.btn} onClick={retakePicture}>Reprendre la photo</span>
+            <span className={styles.btn} onClick={validate}>Valider</span>
+            <span className={styles.btn} onClick={retakePicture}>Reprendre la photo</span>
           </div>
         </div> :
 
@@ -105,7 +109,7 @@ const Camera = () => {
 
         <div className={styles.cameraPart}>
 
-          <   LuSwitchCamera onClick={() => handleChangeCamera({ target: { value: devices[1] } })} />
+          <   LuSwitchCamera onClick={handleChangeCamera} />
 
           <video playsInline autoPlay ref={videoRef} />
           <SiPhotobucket onClick={handleTakePhoto} />

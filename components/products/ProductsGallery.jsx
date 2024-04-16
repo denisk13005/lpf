@@ -214,6 +214,14 @@ const ProductsGallery = () => {
     setRefine(payload)
   }
 
+  const photoUrl = (payload) => {
+    setImageUrl(payload)
+  }
+  const getUrl = (url) => {
+    setShowCamera(false)
+    setImageUrl(url)
+  }
+
 
 
 
@@ -266,7 +274,7 @@ const ProductsGallery = () => {
 
 
             </div>
-            {showCamera && <Camera />}
+            {showCamera && <Camera getUrl={getUrl} />}
 
           </div>
 
