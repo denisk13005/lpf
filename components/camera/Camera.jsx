@@ -70,7 +70,8 @@ const Camera = ({ getUrl }) => {
     canvas.height = 1080;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
-    photoUrl(photo)
+    photo && console.log(photo, '))))')
+    // photoUrl(photo)
   };
 
   const retakePicture = () => {
@@ -109,10 +110,10 @@ const Camera = ({ getUrl }) => {
 
         <div className={styles.cameraPart}>
 
-          <   LuSwitchCamera onClick={handleChangeCamera} />
+          <LuSwitchCamera onClick={handleChangeCamera} className={styles.changeBtn} />
 
-          <video playsInline autoPlay ref={videoRef} />
-          <SiPhotobucket onClick={handleTakePhoto} />
+          <video playsInline autoPlay ref={videoRef} className={styles.video} />
+          <SiPhotobucket onClick={handleTakePhoto} className={styles.takePhotoBtn} />
         </div>
 
       }

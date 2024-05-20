@@ -4,12 +4,11 @@
   left :0;
   width: 100%;
   height: 100%;
-  border: 1px solid red;
   background-color: pink;
   .photoContainer {
     width : 100%;
     height : 100%;
-    background-color: blue;
+    background-color: red;
     position: relative;
     .btnContainer {
       position: absolute;
@@ -40,6 +39,46 @@
   
   .cameraPart {
     height: 100%;
+
+    position : relative;
+    overflow: hidden;
+    .video{
+      position : absolute;
+      width: 200%;
+      height: 100%;
+      transform: translate(-15%);
+      z-index: 1;
+    ;
+      
+      
+      
+    }
+    .changeBtn{
+      position: absolute;
+      right: 30px;
+      top : 10px;
+      z-index: 2;
+      background-color: rgba(127, 61, 192, 0.439);
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+
+    }
+    .takePhotoBtn{
+      cursor: pointer;
+      position: absolute;
+      bottom : 10px;
+      left:50%;
+      transform: translate(-50%);
+      font-size: 48px;
+      background-color: rgba(127, 61, 192, 0.439);
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 2;
+
+    }
+
+
   }
   video {
     width: 100%;
