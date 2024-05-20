@@ -24,7 +24,7 @@ const Camera = ({ getUrl }) => {
       setDevices(videoDevices);
       // Sélectionner par défaut la première caméra trouvée
       if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[1].deviceId);
+        setSelectedDeviceId(videoDevices[2].deviceId);
       }
     });
 
