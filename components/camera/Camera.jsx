@@ -56,6 +56,7 @@ const Camera = ({ getUrl }) => {
   // Gérer le changement de caméra sélectionnée
   const handleChangeCamera = (event) => {
     console.log('devices')
+
     setSelectedDeviceId(devices[1]);
     startCamera(devices[1]);
   };
