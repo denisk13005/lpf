@@ -70,9 +70,11 @@ const Camera = ({ getUrl }) => {
     canvas.height = 1080;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     setPhoto(canvas.toDataURL('image/png'));
-    photo && console.log(photo, '))))')
-    // photoUrl(photo)
+
   };
+  useEffect(() => {
+    console.log(photo)
+  }, [photo])
 
   const retakePicture = () => {
     setPhoto("")

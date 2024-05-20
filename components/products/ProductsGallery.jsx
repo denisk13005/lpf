@@ -100,6 +100,7 @@ const ProductsGallery = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0]
     setFile(file);
+    console.log(file, 'file')
     setImageUrl(getImageUrl(e).imageURL)
     setProduct({ ...product, picture: file })
   }
@@ -192,7 +193,7 @@ const ProductsGallery = () => {
     formDataEventToSend.append('price', product.price)
     formDataEventToSend.append('category', product.category)
     formDataEventToSend.append('picture', file)
-    console.log(formDataEventToSend, '--');
+    formDataEventToSend && console.log(formDataEventToSend, '--');
     const query = await fetch('/api/products/add', {
       method: 'POST',
       body: formDataEventToSend
@@ -217,9 +218,17 @@ const ProductsGallery = () => {
   const photoUrl = (payload) => {
     setImageUrl(payload)
   }
-  const getUrl = (url) => {
+  const getUrl = async (photo) => {
+    const res = await fetch(photo)
+    const blob = await res.blob()
     setShowCamera(false)
-    setImageUrl(url)
+    setImageUrl(photo)
+    const file = new File([blob], 'photo.png', { type: blob.type });
+
+    setFile(file)
+    setProduct({ ...product, picture: file })
+    console.log(photo, 'url dans getUrl')
+
   }
 
 
