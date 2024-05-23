@@ -55,10 +55,12 @@ const Camera = ({ getUrl }) => {
 
   // Gérer le changement de caméra sélectionnée
   const handleChangeCamera = (event) => {
+    const videoDevices = devices.filter(device => device.kind === 'videoinput');
+    console.log(videoDevices, 'video devices')
     console.log('devices')
 
 
-    setSelectedDeviceId(videoDevices[1].deviceId);
+    setSelectedDeviceId(videoDevices[0].deviceId);
 
   };
 
