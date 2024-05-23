@@ -57,8 +57,9 @@ const Camera = ({ getUrl }) => {
   const handleChangeCamera = (event) => {
     console.log('devices')
 
-    setSelectedDeviceId(devices[1]);
-    startCamera(devices[1]);
+
+    setSelectedDeviceId(videoDevices[1].deviceId);
+
   };
 
   // Capture et affichage de la photo
