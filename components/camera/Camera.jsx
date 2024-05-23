@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 const Camera = ({ getUrl }) => {
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const [cameraChoosen, setCameraChoosen] = useState(0)
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Camera = ({ getUrl }) => {
       setDevices(videoDevices);
       // Sélectionner par défaut la première caméra trouvée
       if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[2].deviceId);
+        setSelectedDeviceId(videoDevices[cameraChoosen].deviceId);
       }
     });
 
@@ -55,12 +56,15 @@ const Camera = ({ getUrl }) => {
 
   // Gérer le changement de caméra sélectionnée
   const handleChangeCamera = (event) => {
-    const videoDevices = devices.filter(device => device.kind === 'videoinput');
-    console.log(videoDevices, 'video devices')
-    console.log('devices')
+    if (cameraChoosen <= devices.length) {
+      setCameraChoosen(cameraChoosen + 1)
+    } else {
+      setCameraChoosen(0)
+
+    }
 
 
-    setSelectedDeviceId(videoDevices[0].deviceId);
+    setSelectedDeviceId(devices[cameraChoosen].deviceId);
 
   };
 
