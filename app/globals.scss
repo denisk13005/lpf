@@ -1,4 +1,7 @@
 @import './variables.module.scss';
+/* Ajoutez ceci à votre fichier CSS global */
+@import "leaflet/dist/leaflet.css";
+
 
 * {
   margin: 0;
