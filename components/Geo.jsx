@@ -1,17 +1,29 @@
 'use client'
-
 import L from 'leaflet';
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+
+// Exemple d'icône personnalisée avec une image de voiture
+const carIcon = new L.Icon({
+  iconUrl: '/money.png', // Chemin vers l'image de la voiture
+  iconSize: [38, 38], // Taille de l'icône
+  iconAnchor: [19, 38], // Point de l'icône qui correspond à la position du marqueur
+  popupAnchor: [0, -38], // Point où la bulle d'info s'affiche par rapport au marqueur
+});
 
 const LocationMarker = () => {
   const [position, setPosition] = useState(null);
+  const map = useMap(); // Accès à l'instance de la carte
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setPosition([position.coords.latitude, position.coords.longitude]);
+          const { latitude, longitude } = position.coords;
+          setPosition([latitude, longitude]);
+
+          // Centrer la carte sur la position actuelle
+          map.setView([latitude, longitude], 18); // Le deuxième argument est le zoom
         },
         (error) => {
           console.error("Erreur lors de l'obtention de la position :", error);
@@ -25,27 +37,21 @@ const LocationMarker = () => {
     } else {
       console.error("La géolocalisation n'est pas supportée par ce navigateur.");
     }
-  }, []);
-
-  const customIcon = new L.Icon({
-    iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
-    iconSize: [38, 95], // taille de l'icône
-    iconAnchor: [22, 94], // point de l'icône qui correspond à la position du marker
-    popupAnchor: [-3, -76], // point où la bulle s'ouvre par rapport à l'iconAnchor
-  });
+  }, [map]);
 
   return position === null ? null : (
-    <Marker position={position} icon={customIcon}>
-      <Popup>Vous êtes ici</Popup>
+    <Marker position={position} icon={carIcon}>
+      <Popup>Vous êtes ici avec une voiture</Popup>
     </Marker>
   );
 };
 
-const Geo = () => {
-  const [mapCenter, setMapCenter] = useState([43.3, 5.4]); // Coordonnées par défaut (Londres)
+const MapView = () => {
+  // Centrage initial par défaut (au cas où la géolocalisation échoue)
+  const defaultPosition = [51.505, -0.09];
 
   return (
-    <MapContainer center={mapCenter} zoom={15} style={{ height: "100vh", width: "100%" }}>
+    <MapContainer center={defaultPosition} zoom={18} style={{ height: "100vh", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -55,4 +61,4 @@ const Geo = () => {
   );
 };
 
-export default Geo;
+export default MapView;
