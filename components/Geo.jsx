@@ -122,7 +122,7 @@ const MapView = () => {
         <LocationMarker position={currentPosition} text="Votre voiture est garé ici" icon={location} />
 
         {/* Marqueur pour la position géocodée */}
-        <LocationMarker position={addressPosition} text="La voiture " icon={carIcon} />
+        <LocationMarker position={addressPosition} text="Dernière posision connue de la voiture verbalisatrice" icon={carIcon} />
       </MapContainer>
     </div>
   );
