@@ -1,11 +1,18 @@
 'use client'
+
 import L from 'leaflet';
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 
 // Icône personnalisée pour la voiture
 const carIcon = new L.Icon({
-  iconUrl: '/car-icon.png',
+  iconUrl: '/money.png',
+  iconSize: [38, 38],
+  iconAnchor: [19, 38],
+  popupAnchor: [0, -38],
+});
+const adressIcon = new L.Icon({
+  iconUrl: '/location.png',
   iconSize: [38, 38],
   iconAnchor: [19, 38],
   popupAnchor: [0, -38],
@@ -25,6 +32,17 @@ const getDistance = (pos1, pos2) => {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return R * c;
+};
+
+// Composant pour centrer la carte sur une position donnée
+const SetMapCenter = ({ position }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (position) {
+      map.setView(position, 13); // Centrer la carte sur la position avec un zoom de 13
+    }
+  }, [position, map]);
+  return null;
 };
 
 // Composant pour gérer la géolocalisation
@@ -69,8 +87,8 @@ const MapView = () => {
   useEffect(() => {
     if (currentPosition && addressPosition) {
       const distance = getDistance(currentPosition, addressPosition);
-      if (distance <= 500) { // Vérifier si la distance est inférieure à 100 mètres
-        alert('Vous êtes à moins de 500 mètres de la position renseignée.');
+      if (distance <= 100) { // Vérifier si la distance est inférieure à 100 mètres
+        alert('Vous êtes à moins de 100 mètres de la position renseignée.');
       }
     }
   }, [currentPosition, addressPosition]);
@@ -80,8 +98,8 @@ const MapView = () => {
       {/* Texte superposé avec les boutons */}
       <div style={{
         position: "absolute",
-        top: "20px",
-        left: "20px",
+        bottom: "-120px",
+        left: "45%",
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.7)",
         padding: "10px",
@@ -115,6 +133,11 @@ const MapView = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
+        {/* Centrer la carte sur la position actuelle */}
+        {currentPosition && <SetMapCenter position={currentPosition} />}
+        {/* Centrer la carte sur la position géocodée */}
+        {addressPosition && <SetMapCenter position={addressPosition} />}
+
         {/* Marqueur pour la position actuelle */}
         {currentPosition && (
           <Marker position={currentPosition} icon={carIcon}>
@@ -124,7 +147,7 @@ const MapView = () => {
 
         {/* Marqueur pour la position géocodée */}
         {addressPosition && (
-          <Marker position={addressPosition} icon={carIcon}>
+          <Marker position={addressPosition} icon={adressIcon}>
             <Popup>Position de l'adresse</Popup>
           </Marker>
         )}
