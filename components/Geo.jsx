@@ -159,7 +159,6 @@ const MapView = () => {
 export default function Home() {
   return (
     <div>
-      <h1>Carte avec position actuelle et géocodage d'adresse</h1>
       <MapView />
     </div>
   );
