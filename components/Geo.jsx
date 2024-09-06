@@ -98,8 +98,8 @@ const MapView = () => {
       {/* Texte superposé avec les boutons */}
       <div style={{
         position: "absolute",
-        bottom: "-120px",
-        left: "45%",
+        top: "0",
+        right: 0,
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.7)",
         padding: "10px",
